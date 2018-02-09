@@ -1,3 +1,6 @@
+# Is this a good idea? Probably not.
+
+
 def _underline_header(header):
     return "|".join(["---"] * len(header.split('|')))
 
@@ -52,7 +55,7 @@ def _generate_tank_section(my, lst, title, header, func):
         yield header_lines
         yield from func(my)
     else:
-        yield "No tank tonight."
+        yield "Nothing."
     yield ""
     yield "- Out of town tank:"
     yield ""
@@ -63,13 +66,18 @@ def _generate_tank_section(my, lst, title, header, func):
             yield from func(entry)
     else:
         yield "Nothing out of town."
-
     yield ""
 
 
-def generate(my_result, results, my_game, games, standings):
+def _generate(my_result, results, my_game, games, standings):
     yield from _generate_tank_section(my_result, results, "Last night's tank", "Game|Score|Yay?", _generate_result_line)
     yield "---"
     yield from _generate_standings(standings)
     yield "---"
     yield from _generate_tank_section(my_game, games, "Tonight's tank", "Game|Cheer for?|Time", _generate_game_line)
+    yield "---"
+    yield "I'm a robot. My source is available [here](https://github.com/sbstp/tankbot)."
+
+
+def generate(*args):
+    return '\n'.join(_generate(*args))

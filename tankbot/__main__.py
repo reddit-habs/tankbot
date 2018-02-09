@@ -1,3 +1,7 @@
+import json
+
+import arrow
+import praw
 from attr import attrib, attrs
 
 from .api import CachedInfo, Team
@@ -67,11 +71,31 @@ def compute_matchups(my_team: Team, games):
     return my_matchup, matchups
 
 
+def test_salt():
+    import random  # noqa
+    pool = []
+    pool.extend(range(ord('a'), ord('z') + 1))
+    pool.extend(range(ord('A'), ord('Z') + 1))
+    pool.extend(range(ord('0'), ord('9') + 1))
+    return ''.join(chr(random.choice(pool)) for _ in range(5))
+
+
 if __name__ == '__main__':
-    info = CachedInfo()
-    with open('template.md') as f:
-        my_team = info.get_team_by_code('mtl')
+    with open('config.json') as f:
+        config = json.load(f)
+
+        info = CachedInfo()
+        my_team = info.get_team_by_code(config['my_team'])
         my_matchup, matchups = compute_matchups(my_team, info.games)
         my_result, results = compute_matchups(my_team, info.results)
         standings = [s for s in info.standings if is_team_in_range(my_team, s.team)]
-        print('\n'.join(generate(my_result, results, my_matchup, matchups, standings)))
+        text = generate(my_result, results, my_matchup, matchups, standings)
+
+        reddit = praw.Reddit(client_id=config['client_id'],
+                             client_secret=config['client_secret'],
+                             username=config['username'],
+                             password=config['password'],
+                             user_agent=config['user_agent'])
+
+        sub = reddit.subreddit(config['subreddit'])
+        sub.submit("Scouting the tank {} #{}".format(arrow.now().format('MMMM Do, YYYY'), test_salt()), selftext=text)
