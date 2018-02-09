@@ -4,7 +4,7 @@ import arrow
 import praw
 from attr import attrib, attrs
 
-from .api import CachedInfo, Team
+from .api import CachedInfo, Info, Team
 from .generate import generate
 
 
@@ -48,9 +48,6 @@ def is_team_in_range(my_team, other):
 
 
 def is_game_relevant(game, my_team: Team):
-    if my_team == game.home or my_team == game.away:
-        return True
-
     return is_team_in_range(my_team, game.home) or is_team_in_range(my_team, game.away)
 
 
@@ -83,19 +80,24 @@ def test_salt():
 if __name__ == '__main__':
     with open('config.json') as f:
         config = json.load(f)
+        test = config.get("test", False)
 
-        info = CachedInfo()
+        info = CachedInfo() if test else Info()
         my_team = info.get_team_by_code(config['my_team'])
         my_matchup, matchups = compute_matchups(my_team, info.games)
         my_result, results = compute_matchups(my_team, info.results)
         standings = [s for s in info.standings if is_team_in_range(my_team, s.team)]
-        text = generate(my_result, results, my_matchup, matchups, standings)
+        text = generate(my_team, my_result, results, my_matchup, matchups, standings)
 
-        reddit = praw.Reddit(client_id=config['client_id'],
-                             client_secret=config['client_secret'],
-                             username=config['username'],
-                             password=config['password'],
-                             user_agent=config['user_agent'])
+        if test:
+            print(text)
+        else:
+            reddit = praw.Reddit(client_id=config['client_id'],
+                                 client_secret=config['client_secret'],
+                                 username=config['username'],
+                                 password=config['password'],
+                                 user_agent=config['user_agent'])
 
-        sub = reddit.subreddit(config['subreddit'])
-        sub.submit("Scouting the tank {} #{}".format(arrow.now().format('MMMM Do, YYYY'), test_salt()), selftext=text)
+            sub = reddit.subreddit(config['subreddit'])
+            sub.submit("Scouting the tank {} #{}".format(
+                arrow.now().format('MMMM Do, YYYY'), test_salt()), selftext=text)

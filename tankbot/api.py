@@ -15,6 +15,7 @@ class Team:
     name = attrib(cmp=False)
     location = attrib(cmp=False)
     standing = attrib(cmp=False, init=False, repr=False)
+    subreddit = attrib(init=False)
 
 
 @attrs(slots=True)
@@ -40,6 +41,7 @@ class Game:
 class Result(Game):
     home_score = attrib()
     away_score = attrib()
+    overtime = attrib()
     winner = attrib(init=False)
 
     def __attrs_post_init__(self):
@@ -91,6 +93,14 @@ class Info:
             self.teams.append(team)
             self._team_id_map[team.id] = team
             self._team_code_map[team.code.lower()] = team
+        self._load_team_subreddits()
+
+    def _load_team_subreddits(self):
+        with open('data/subreddits') as f:
+            subreddits = f.read().splitlines()
+            teams = list(sorted(self.teams, key=lambda t: t.fullname))
+            for idx, team in enumerate(teams):
+                team.subreddit = subreddits[idx]
 
     def _get_standings(self):
         data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/standings/byLeague")
@@ -110,8 +120,16 @@ class Info:
             team.standing = standing
             place += 1
 
+    def _get_date(self, yesterday=False):
+        dt = arrow.now()
+        if dt.hour <= 6:
+            dt = dt.shift(days=-1)
+        if yesterday:
+            dt = dt.shift(days=-1)
+        return dt.date().isoformat()
+
     def _get_games(self):
-        today = arrow.now().date().isoformat()
+        today = self._get_date()
         data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/schedule",
                                 params=dict(startDate=today, endDate=today))
         for entry in data['dates'][0]['games']:
@@ -122,15 +140,17 @@ class Info:
             self.games.append(game)
 
     def _get_results(self):
-        yeserday = arrow.now().shift(days=-1).date().isoformat()
+        yeserday = self._get_date(True)
         data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/schedule",
-                                params=dict(startDate=yeserday, endDate=yeserday))
+                                params=dict(startDate=yeserday, endDate=yeserday, expand="schedule.linescore"))
         for entry in data['dates'][0]['games']:
             date = arrow.get(entry['gameDate']).to('local')
             home = self.get_team_by_id(entry['teams']['home']['team']['id'])
             away = self.get_team_by_id(entry['teams']['away']['team']['id'])
             result = Result(time=date, home=home, away=away,
-                            home_score=entry['teams']['home']['score'], away_score=entry['teams']['away']['score'])
+                            home_score=entry['teams']['home']['score'],
+                            away_score=entry['teams']['away']['score'],
+                            overtime=len(entry['linescore']['periods']) > 3)
             self.results.append(result)
 
 
