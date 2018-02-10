@@ -99,5 +99,5 @@ if __name__ == '__main__':
                                  user_agent=config['user_agent'])
 
             sub = reddit.subreddit(config['subreddit'])
-            sub.submit("Scouting the tank {} #{}".format(
-                arrow.now().format('MMMM Do, YYYY'), test_salt()), selftext=text)
+            title = "Scouting the tank {}".format(arrow.now().format('MMMM Do, YYYY'))
+            sub.submit(title, selftext=text)

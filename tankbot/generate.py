@@ -13,7 +13,7 @@ def _get_mood(r):
     elif r.tanker == r.game.winner:
         return "Yes"
     # if the enemy tanker didn't win but went to OT
-    elif r.overtime:
+    elif r.game.overtime:
         return "Half yay"
     # no win, no OT
     else:
@@ -31,7 +31,7 @@ def _generate_result_line(r):
         r.game.away_score,
         r.game.home_score,
         _get_team(r.game.winner),
-        "OT" if r.game.overtime else "",
+        "(OT)" if r.game.overtime else "",
         _get_mood(r),
     )
 
@@ -62,6 +62,8 @@ def _generate_standings(standings):
             s.row,
         )
     yield ""
+    yield "[Lottery odds, as well as a Lottery Simulator can be found here.](http://nhllotterysimulator.com)"
+    yield ""
 
 
 def _generate_tank_section(my, lst, title, header, func):
@@ -90,7 +92,7 @@ def _generate_tank_section(my, lst, title, header, func):
 
 
 def _generate(my_team, my_result, results, my_game, games, standings):
-    yield "# Optimal tank scenarios for the {}".format(my_team.fullname)
+    yield "# Scouting the Tank"
     yield from _generate_tank_section(my_result, results, "Last night's tank", "Game|Score|Yay?", _generate_result_line)
     yield "---"
     yield from _generate_standings(standings)
