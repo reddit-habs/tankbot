@@ -29,6 +29,7 @@ class Standing:
     losses = attrib()
     ot = attrib()
     row = attrib()
+    streak = attrib()
     projection = attrib(init=False)
 
     def __attrs_post_init__(self):
@@ -119,7 +120,8 @@ class Info:
                                 wins=entry['leagueRecord']['wins'],
                                 losses=entry['leagueRecord']['losses'],
                                 ot=entry['leagueRecord']['ot'],
-                                row=entry['row'])
+                                row=entry['row'],
+                                streak=entry['streak']['streakCode'])
             self.standings.append(standing)
             self._standing_team_map[team] = standing
             team.standing = standing
