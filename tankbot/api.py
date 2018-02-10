@@ -6,6 +6,8 @@ from attr import attrs, attrib
 from fake_useragent import UserAgent
 from requests import Request, Session
 
+from . import localdata
+
 
 @attrs(slots=True, hash=True)
 class Team:
@@ -30,6 +32,7 @@ class Standing:
     row = attrib()
     last10 = attrib()
     projection = attrib(init=False)
+    odds = attrib(init=False)
 
     def __attrs_post_init__(self):
         self.projection = round((self.points / self.gamesPlayed) * 82)
@@ -98,14 +101,12 @@ class Info:
             self.teams.append(team)
             self._team_id_map[team.id] = team
             self._team_code_map[team.code.lower()] = team
-        self._load_team_subreddits()
+        self._load_subreddits()
 
-    def _load_team_subreddits(self):
-        with open('data/subreddits') as f:
-            subreddits = f.read().splitlines()
-            teams = list(sorted(self.teams, key=lambda t: t.fullname))
-            for idx, team in enumerate(teams):
-                team.subreddit = subreddits[idx]
+    def _load_subreddits(self):
+        teams = list(sorted(self.teams, key=lambda t: t.fullname))
+        for idx, team in enumerate(teams):
+            team.subreddit = localdata.subreddits[idx]
 
     def _get_last10(self, entry):
         filtered = [r for r in entry['records']['overallRecords'] if r['type'] == "lastTen"]
@@ -116,7 +117,6 @@ class Info:
             return "N/A"
 
     def _get_standings(self):
-
         data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/standings/byLeague?expand=standings.record")
         place = 1
         for entry in data['records'][0]['teamRecords']:
@@ -134,6 +134,14 @@ class Info:
             self._standing_team_map[team] = standing
             team.standing = standing
             place += 1
+        self._load_lottery_odds()
+
+    def _load_lottery_odds(self):
+        for s in self.standings:
+            try:
+                s.odds = localdata.lottery[len(self.teams) - s.place]
+            except IndexError:
+                s.odds = 0
 
     def _get_date(self, yesterday=False):
         dt = arrow.now()
