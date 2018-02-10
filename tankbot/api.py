@@ -1,5 +1,4 @@
 import json
-import math
 
 import arrow
 import requests
@@ -29,11 +28,11 @@ class Standing:
     losses = attrib()
     ot = attrib()
     row = attrib()
-    streak = attrib()
+    last10 = attrib()
     projection = attrib(init=False)
 
     def __attrs_post_init__(self):
-        self.projection = math.floor((self.points / self.gamesPlayed) * 82)
+        self.projection = round((self.points / self.gamesPlayed) * 82)
 
 
 @attrs(slots=True)
@@ -108,8 +107,17 @@ class Info:
             for idx, team in enumerate(teams):
                 team.subreddit = subreddits[idx]
 
+    def _get_last10(self, entry):
+        filtered = [r for r in entry['records']['overallRecords'] if r['type'] == "lastTen"]
+        if len(filtered) > 0:
+            rec = filtered[0]
+            return '{}-{}-{}'.format(rec['wins'], rec['losses'], rec['ot'])
+        else:
+            return "N/A"
+
     def _get_standings(self):
-        data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/standings/byLeague")
+
+        data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/standings/byLeague?expand=standings.record")
         place = 1
         for entry in data['records'][0]['teamRecords']:
             team = self.get_team_by_id(entry['team']['id'])
@@ -121,7 +129,7 @@ class Info:
                                 losses=entry['leagueRecord']['losses'],
                                 ot=entry['leagueRecord']['ot'],
                                 row=entry['row'],
-                                streak=entry['streak']['streakCode'])
+                                last10=self._get_last10(entry))
             self.standings.append(standing)
             self._standing_team_map[team] = standing
             team.standing = standing

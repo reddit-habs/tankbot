@@ -59,21 +59,21 @@ def _generate_game_line(my_team, r):
 
 
 def _generate_standings(standings, odds):
-    header = "Place|Team|GP|Record|Points|ROW|Streak|Projection|1st pick odds"
+    header = "Place|Team|GP|Record|Points|ROW|L10|Points Projection|1st OA odds"
     header_lines = _underline_header(header)
     yield "## Standings"
     yield ""
     yield header
     yield header_lines
     for s in standings:
-        yield "{}|{}|{}|{}|{}|{}|{}|{}|{:0.1f}".format(
+        yield "{}|{}|{}|{}|{}|{}|{}|{}|{:0.1f}%".format(
             s.place,
             _get_team(s.team),
             s.gamesPlayed,
-            "{:02}-{:02}-{:02}".format(s.wins, s.losses, s.ot),
+            "{}-{}-{}".format(s.wins, s.losses, s.ot),
             s.points,
             s.row,
-            s.streak,
+            s.last10,
             s.projection,
             odds(s),
         )
