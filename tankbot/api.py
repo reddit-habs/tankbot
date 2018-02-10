@@ -1,4 +1,5 @@
 import json
+import math
 
 import arrow
 import requests
@@ -28,6 +29,10 @@ class Standing:
     losses = attrib()
     ot = attrib()
     row = attrib()
+    projection = attrib(init=False)
+
+    def __attrs_post_init__(self):
+        self.projection = math.floor((self.points / self.gamesPlayed) * 82)
 
 
 @attrs(slots=True)

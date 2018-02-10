@@ -1,6 +1,19 @@
 # Is this a good idea? Probably not.
 
 
+def _make_odds_func(info):
+    with open('data/lottery') as f:
+        odds = list(map(float, f.read().splitlines()))
+
+    def func(s):
+        try:
+            return odds[len(info.teams) - s.place]
+        except IndexError:
+            return 0
+
+    return func
+
+
 def _underline_header(header):
     return "|".join([":---:"] * len(header.split('|')))
 
@@ -45,21 +58,23 @@ def _generate_game_line(my_team, r):
     )
 
 
-def _generate_standings(standings):
-    header = "Place|Team|GP|Record|Points|ROW"
+def _generate_standings(standings, odds):
+    header = "Place|Team|GP|Record|Points|ROW|Projection|1st pick odds"
     header_lines = _underline_header(header)
     yield "## Standings"
     yield ""
     yield header
     yield header_lines
     for s in standings:
-        yield "{}|{}|{}|{}|{}|{}".format(
+        yield "{}|{}|{}|{}|{}|{}|{}|{:0.1f}".format(
             s.place,
             _get_team(s.team),
             s.gamesPlayed,
             "{:02}-{:02}-{:02}".format(s.wins, s.losses, s.ot),
             s.points,
             s.row,
+            s.projection,
+            odds(s),
         )
     yield ""
     yield "[Lottery odds, as well as a Lottery Simulator can be found here.](http://nhllotterysimulator.com)"
@@ -92,11 +107,12 @@ def _generate_tank_section(my_team, my, lst, title, header, func):
 
 
 def _generate(info, my_team, my_result, results, my_game, games, standings):
+    odds = _make_odds_func(info)
     yield "# Scouting the Tank"
     yield from _generate_tank_section(my_team, my_result, results,
                                       "Last night's tank", "Game|Score|Yay?", _generate_result_line)
     yield "---"
-    yield from _generate_standings(standings)
+    yield from _generate_standings(standings, odds)
     yield "---"
     yield from _generate_tank_section(my_team, my_game, games,
                                       "Tonight's tank", "Game|Cheer for?|Time", _generate_game_line)
