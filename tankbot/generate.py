@@ -5,7 +5,7 @@ def _underline_header(header):
     return "|".join([":---:"] * len(header.split('|')))
 
 
-def _get_mood(r):
+def _get_mood(my_team, r):
     # if should have went to overtime and it did, perfect
     if r.overtime and r.game.overtime:
         return "Perfect"
@@ -13,7 +13,7 @@ def _get_mood(r):
     elif r.tanker == r.game.winner:
         return "Yes"
     # if the enemy tanker didn't win but went to OT
-    elif r.game.overtime:
+    elif r.game.overtime and r.game.winner != my_team:
         return "Half yay"
     # no win, no OT
     else:
@@ -24,7 +24,7 @@ def _get_team(t):
     return '[](/r/{}) {}'.format(t.subreddit, t.code.upper())
 
 
-def _generate_result_line(r):
+def _generate_result_line(my_team, r):
     yield "{} at {}|{}-{} {} {}|{}".format(
         _get_team(r.game.away),
         _get_team(r.game.home),
@@ -32,11 +32,11 @@ def _generate_result_line(r):
         r.game.home_score,
         _get_team(r.game.winner),
         "(OT)" if r.game.overtime else "",
-        _get_mood(r),
+        _get_mood(my_team, r),
     )
 
 
-def _generate_game_line(r):
+def _generate_game_line(my_team, r):
     yield "{} at {}|{}|{}".format(
         _get_team(r.game.away),
         _get_team(r.game.home),
@@ -66,7 +66,7 @@ def _generate_standings(standings):
     yield ""
 
 
-def _generate_tank_section(my, lst, title, header, func):
+def _generate_tank_section(my_team, my, lst, title, header, func):
     header_lines = _underline_header(header)
     yield "## {}".format(title)
     yield ""
@@ -75,7 +75,7 @@ def _generate_tank_section(my, lst, title, header, func):
     if my:
         yield header
         yield header_lines
-        yield from func(my)
+        yield from func(my_team, my)
     else:
         yield "Nothing."
     yield ""
@@ -85,19 +85,21 @@ def _generate_tank_section(my, lst, title, header, func):
         yield header
         yield header_lines
         for entry in lst:
-            yield from func(entry)
+            yield from func(my_team, entry)
     else:
         yield "Nothing out of town."
     yield ""
 
 
-def _generate(my_team, my_result, results, my_game, games, standings):
+def _generate(info, my_team, my_result, results, my_game, games, standings):
     yield "# Scouting the Tank"
-    yield from _generate_tank_section(my_result, results, "Last night's tank", "Game|Score|Yay?", _generate_result_line)
+    yield from _generate_tank_section(my_team, my_result, results,
+                                      "Last night's tank", "Game|Score|Yay?", _generate_result_line)
     yield "---"
     yield from _generate_standings(standings)
     yield "---"
-    yield from _generate_tank_section(my_game, games, "Tonight's tank", "Game|Cheer for?|Time", _generate_game_line)
+    yield from _generate_tank_section(my_team, my_game, games,
+                                      "Tonight's tank", "Game|Cheer for?|Time", _generate_game_line)
     yield "---"
     yield "I'm a robot. My source is available [here](https://github.com/sbstp/tankbot)."
 

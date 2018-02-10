@@ -87,7 +87,7 @@ if __name__ == '__main__':
         my_matchup, matchups = compute_matchups(my_team, info.games)
         my_result, results = compute_matchups(my_team, info.results)
         standings = [s for s in info.standings if is_team_in_range(my_team, s.team)]
-        text = generate(my_team, my_result, results, my_matchup, matchups, standings)
+        text = generate(info, my_team, my_result, results, my_matchup, matchups, standings)
 
         if test:
             print(text)
