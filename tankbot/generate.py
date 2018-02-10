@@ -20,23 +20,27 @@ def _get_mood(r):
         return "No"
 
 
+def _get_team(t):
+    return '[](/r/{}) {}'.format(t.subreddit, t.code.upper())
+
+
 def _generate_result_line(r):
-    yield "[](/r/{}) at [](/r/{})|{}-{} [](/r/{}) {}|{}".format(
-        r.game.away.subreddit,
-        r.game.home.subreddit,
+    yield "{} at {}|{}-{} {} {}|{}".format(
+        _get_team(r.game.away),
+        _get_team(r.game.home),
         r.game.away_score,
         r.game.home_score,
-        r.game.winner.subreddit,
+        _get_team(r.game.winner),
         "OT" if r.game.overtime else "",
         _get_mood(r),
     )
 
 
 def _generate_game_line(r):
-    yield "[](/r/{}) at [](/r/{})|{}|{}".format(
-        r.game.away.subreddit,
-        r.game.home.subreddit,
-        "OT" if r.overtime else '[](/r/{})'.format(r.tanker.subreddit),
+    yield "{} at {}|{}|{}".format(
+        _get_team(r.game.away),
+        _get_team(r.game.home),
+        "Overtime" if r.overtime else _get_team(r.tanker),
         r.time,
     )
 
@@ -49,9 +53,9 @@ def _generate_standings(standings):
     yield header
     yield header_lines
     for s in standings:
-        yield "{}|[](/r/{})|{}|{}|{}|{}".format(
+        yield "{}|{}|{}|{}|{}|{}".format(
             s.place,
-            s.team.subreddit,
+            _get_team(s.team),
             s.gamesPlayed,
             "{:02}-{:02}-{:02}".format(s.wins, s.losses, s.ot),
             s.points,
