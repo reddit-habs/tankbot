@@ -1,0 +1,9 @@
+[Unit]
+Description=Tankbot
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/tankbot
+ExecStart=/usr/bin/python3 -m tankbot
