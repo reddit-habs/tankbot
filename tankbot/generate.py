@@ -57,14 +57,14 @@ def _generate_game_line(my_team, r):
 
 
 def _generate_standings(standings):
-    header = "Place|Team|GP|Record|Points|ROW|L10|Points Projection|1st OA odds"
+    header = "Place|Team|GP|Record|Points|ROW|L10|1st OA odds"
     header_lines = _underline_header(header)
     yield "## Standings"
     yield ""
     yield header
     yield header_lines
     for s in standings:
-        yield "{}|{}|{}|{}|{}|{}|{}|{}|{:0.1f}%".format(
+        yield "{}|{}|{}|{}|{}|{}|{}|{:0.1f}%".format(
             s.place,
             _get_team(s.team),
             s.gamesPlayed,
@@ -72,7 +72,6 @@ def _generate_standings(standings):
             s.points,
             s.row,
             s.last10,
-            s.projection,
             s.odds,
         )
     yield ""
@@ -114,8 +113,7 @@ def _generate(info, my_team, my_result, results, my_game, games, standings):
     yield "---"
     yield from _generate_tank_section(my_team, my_game, games,
                                       "Tonight's tank", "Game|Cheer for?|Time", _generate_game_line)
-    yield "---"
-    yield "I'm a robot. My source is available [here](https://github.com/sbstp/tankbot)."
+    yield ""
 
 
 def generate(*args):
