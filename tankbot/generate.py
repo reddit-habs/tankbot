@@ -4,18 +4,31 @@ def _underline_header(header):
 
 
 def _get_mood(my_team, r):
-    # if should have went to overtime and it did, perfect
-    if r.overtime and r.game.overtime:
-        return "Perfect"
-    # if the enemy tanker won
-    elif r.tanker == r.game.winner:
-        return "Yes"
-    # if the enemy tanker didn't win but went to OT
-    elif r.game.overtime and r.game.winner != my_team:
-        return "Half yay"
-    # no win, no OT
+    # if the team is my team, we want to lose
+    if r.tanker == my_team:
+        # our team won, bad
+        if r.game.winner == my_team:
+            return "No"
+        # game went to overtime, meh
+        elif r.game.overtime:
+            return "Half yay"
+        # no points for us, perfect
+        else:
+            return "Yes"
+    # if the tanker isn't my team, we want him to win
     else:
-        return "No"
+        # if should have went to overtime and it did, perfect
+        if r.overtime and r.game.overtime:
+            return "Perfect"
+        # if the enemy tanker won
+        elif r.tanker == r.game.winner:
+            return "Yes"
+        # if the enemy tanker didn't win but went to OT
+        elif r.game.overtime:
+            return "Half yay"
+        # no win, no OT
+        else:
+            return "No"
 
 
 def _get_team(t):

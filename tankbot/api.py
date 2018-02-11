@@ -145,8 +145,8 @@ class Info:
 
     def _get_date(self, yesterday=False):
         dt = arrow.now()
-        if dt.hour <= 6:
-            dt = dt.shift(days=-1)
+        # if dt.hour <= 6:
+        #     dt = dt.shift(days=-1)
         if yesterday:
             dt = dt.shift(days=-1)
         return dt.date().isoformat()

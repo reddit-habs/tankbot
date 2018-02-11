@@ -26,9 +26,9 @@ class Matchup:
         away_standing = game.away.standing
 
         if game.home == my_team:
-            m.tanker = game.away
-        elif game.away == my_team:
             m.tanker = game.home
+        elif game.away == my_team:
+            m.tanker = game.away
         elif home_standing.points <= my_standing.points and away_standing.points <= my_standing.points:
             m.overtime = True
         elif home_standing.points <= my_standing.points:
@@ -66,15 +66,6 @@ def compute_matchups(my_team: Team, games):
             matchups.append(m)
 
     return my_matchup, matchups
-
-
-def test_salt():
-    import random  # noqa
-    pool = []
-    pool.extend(range(ord('a'), ord('z') + 1))
-    pool.extend(range(ord('A'), ord('Z') + 1))
-    pool.extend(range(ord('0'), ord('9') + 1))
-    return ''.join(chr(random.choice(pool)) for _ in range(5))
 
 
 if __name__ == '__main__':
