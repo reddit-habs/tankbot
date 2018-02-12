@@ -51,7 +51,7 @@ def _generate_game_line(my_team, r):
     yield "{} at {}|{}|{}".format(
         _get_team(r.game.away),
         _get_team(r.game.home),
-        "Overtime" if r.overtime else _get_team(r.tanker),
+        _get_team(r.tanker) + (" (OT)" if r.overtime else ""),
         r.time,
     )
 

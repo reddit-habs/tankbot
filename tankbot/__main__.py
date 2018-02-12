@@ -21,23 +21,15 @@ class Matchup:
     @classmethod
     def from_game(cls, game, my_team):
         m = Matchup(game)
-        my_standing = my_team.standing
-        home_standing = game.home.standing
-        away_standing = game.away.standing
 
         if game.home == my_team:
             m.tanker = game.home
         elif game.away == my_team:
             m.tanker = game.away
-        elif home_standing.points <= my_standing.points and away_standing.points <= my_standing.points:
-            m.overtime = True
-        elif home_standing.points <= my_standing.points:
-            m.tanker = game.home
-        elif away_standing.points <= my_standing.points:
-            m.tanker = game.away
         else:
-            winner, _ = min([(game.home, home_standing), (game.away, away_standing)], key=lambda pair: pair[1].points)
-            m.tanker = winner
+            if is_team_in_range(my_team, game.home) and is_team_in_range(my_team, game.away):
+                m.overtime = True
+            m.tanker = min((game.home, game.away), key=lambda team: team.standing.points)
         return m
 
 
