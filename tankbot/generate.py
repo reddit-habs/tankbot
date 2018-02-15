@@ -33,13 +33,7 @@ def get_mood(a: Analysis, r):
 
 
 def get_cheer(a: Analysis, m):
-    if m.tanker == a.my_team:
-        if m.tanker == m.game.away:
-            team = m.game.home
-        else:
-            team = m.game.away
-    else:
-        team = m.tanker
+    team = m.ideal_winner
     if m.overtime:
         return f"{fmt_team(team)} (OT)"
     else:
