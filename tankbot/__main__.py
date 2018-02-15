@@ -1,4 +1,6 @@
+import argparse
 import json
+import functools
 
 import arrow
 import praw
@@ -8,12 +10,23 @@ from .api import CachedInfo, Info
 from .generate import generate
 
 
+def date(s):
+    try:
+        return arrow.get(s, 'YYYY-MM-DD')
+    except arrow.parser.ParserError:
+        raise ValueError("invalid date")
+
+
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(prog='tankbot')
+    parser.add_argument('--date', default=None, help="date to analyse, YYYY-MM-DD format", type=date)
+    args = parser.parse_args()
+
     with open('config.json') as f:
         config = json.load(f)
         test = config.get("test", False)
 
-        info = CachedInfo() if test else Info()
+        info = CachedInfo(args.date) if test else Info(args.date)
         my_team = info.get_team_by_code(config['my_team'])
         analysis = Analysis(info, my_team)
 

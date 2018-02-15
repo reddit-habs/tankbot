@@ -192,11 +192,11 @@ class Info:
 
 class CachedInfo(Info):
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         self._session = Session()
         self._cache = {}
         self._load()
-        Info.__init__(self)
+        Info.__init__(self, *args, **kwargs)
 
     def _load(self):
         try:
