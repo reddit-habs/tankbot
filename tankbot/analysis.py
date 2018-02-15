@@ -25,27 +25,28 @@ class Analysis:
     reach = attrib(default=5)
 
     def __attrs_post_init__(self):
-        self.my_result, self.results = self._compute_matchups(self.info.results)
+        self.my_result, self.results = self._compute_matchups(self.info.results, past=True)
         self.my_game, self.games = self._compute_matchups(self.info.games)
         self.standings = [s for s in self.info.standings if self.is_team_in_range(s.team)]
 
-    def is_team_in_range(self, other):
+    def is_team_in_range(self, other, past=False):
         if self.my_team == other:
             return True
-        return (other.standing.points <= self.my_team.standing.points or
-                abs(other.standing.points - self.my_team.standing.points) <= self.reach)
+        my_points = self.info.get_standing(self.my_team, past).points
+        other_points = self.info.get_standing(other, past).points
+        return (other_points <= my_points or abs(other_points - my_points) <= self.reach)
 
-    def is_game_relevant(self, game):
-        return self.is_team_in_range(game.home) or self.is_team_in_range(game.away)
+    def is_game_relevant(self, game, past=False):
+        return self.is_team_in_range(game.home, past) or self.is_team_in_range(game.away, past)
 
-    def _compute_matchups(self, games):
+    def _compute_matchups(self, games, past=False):
         my_matchup = False
         matchups = []
 
         for game in games:
-            if not self.is_game_relevant(game):
+            if not self.is_game_relevant(game, past):
                 continue
-            m = self._matchup_from_game(game)
+            m = self._matchup_from_game(game, past)
 
             if self.my_team == game.home or self.my_team == game.away:
                 my_matchup = m
@@ -54,7 +55,7 @@ class Analysis:
 
         return my_matchup, matchups
 
-    def _matchup_from_game(self, game):
+    def _matchup_from_game(self, game, past=False):
         m = Matchup(game)
 
         if game.home == self.my_team:
@@ -64,8 +65,8 @@ class Analysis:
             m.tanker = game.away
             m.ideal_winner = game.home
         else:
-            if self.is_team_in_range(game.home) and self.is_team_in_range(game.away):
+            if self.is_team_in_range(game.home, past) and self.is_team_in_range(game.away, past):
                 m.overtime = True
-            m.tanker = min((game.home, game.away), key=lambda team: team.standing.points)
+            m.tanker = min((game.home, game.away), key=lambda team: self.info.get_standing(team, past).points)
             m.ideal_winner = m.tanker
         return m

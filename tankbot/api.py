@@ -20,11 +20,10 @@ class Team:
     fullname = attrib(cmp=False)
     name = attrib(cmp=False)
     location = attrib(cmp=False)
-    standing = attrib(cmp=False, init=False, repr=False)
     subreddit = attrib(init=False)
 
 
-@attrs(slots=True)
+@attrs(slots=True, cmp=False)
 class Standing:
     team = attrib()
     place = attrib()
@@ -32,8 +31,8 @@ class Standing:
     points = attrib()
     wins = attrib()
     losses = attrib()
-    record = attrib(init=False)
     ot = attrib()
+    record = attrib(init=False)
     row = attrib()
     last10 = attrib()
     projection = attrib(init=False)
@@ -64,19 +63,28 @@ class Result(Game):
 
 class Info:
 
-    def __init__(self):
+    def __init__(self, date=None):
+        if date is None:
+            date = arrow.now()
         self._ua = UserAgent()
+        self.date = date
+        self.past_date = date.shift(days=-1)
         self.teams = []
-        self.standings = []
         self.games = []
         self.results = []
 
         self._team_id_map = {}
         self._team_code_map = {}
-        self._standing_team_map = {}
+        self._standings_team_map = {}
+        self._past_standings_team_map = {}
 
         self._get_teams()
-        self._get_standings()
+
+        self.standings = self._get_standings(date)
+        self.past_standings = self._get_standings(self.past_date)
+        self._map_standings(self._standings_team_map, self.standings)
+        self._map_standings(self._past_standings_team_map, self.past_standings)
+
         self._get_games()
         self._get_results()
 
@@ -86,8 +94,10 @@ class Info:
     def get_team_by_code(self, code):
         return self._team_code_map[code.lower()]
 
-    def get_standing(self, team):
-        return self._standing_team_map[team]
+    def get_standing(self, team, past=False):
+        if past:
+            return self._past_standings_team_map[team]
+        return self._standings_team_map[team]
 
     def _fetch_json(self, url, params=None):
         headers = {
@@ -122,8 +132,10 @@ class Info:
         else:
             return "N/A"
 
-    def _get_standings(self):
-        data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/standings/byLeague?expand=standings.record")
+    def _get_standings(self, date):
+        data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/standings/byLeague?expand=standings.record",
+                                params=dict(date=date.date().isoformat()))
+        standings = []
         place = 1
         for entry in data['records'][0]['teamRecords']:
             team = self.get_team_by_id(entry['team']['id'])
@@ -136,27 +148,24 @@ class Info:
                                 ot=entry['leagueRecord']['ot'],
                                 row=entry['row'],
                                 last10=self._get_last10(entry))
-            self.standings.append(standing)
-            self._standing_team_map[team] = standing
-            team.standing = standing
+            standings.append(standing)
             place += 1
-        self._load_lottery_odds()
+        self._load_lottery_odds(standings)
+        return standings
 
-    def _load_lottery_odds(self):
-        for s in self.standings:
+    def _load_lottery_odds(self, standings):
+        for s in standings:
             try:
                 s.odds = localdata.lottery[len(self.teams) - s.place]
             except IndexError:
                 s.odds = 0
 
-    def _get_date(self, yesterday=False):
-        dt = arrow.now()
-        if yesterday:
-            dt = dt.shift(days=-1)
-        return dt.date().isoformat()
+    def _map_standings(self, smap, standings):
+        for s in standings:
+            smap[s.team] = s
 
     def _get_games(self):
-        today = self._get_date()
+        today = self.date.date().isoformat()
         data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/schedule",
                                 params=dict(startDate=today, endDate=today))
         for entry in data['dates'][0]['games']:
@@ -167,7 +176,7 @@ class Info:
             self.games.append(game)
 
     def _get_results(self):
-        yeserday = self._get_date(True)
+        yeserday = self.past_date.date().isoformat()
         data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/schedule",
                                 params=dict(startDate=yeserday, endDate=yeserday, expand="schedule.linescore"))
         for entry in data['dates'][0]['games']:
