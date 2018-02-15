@@ -31,6 +31,17 @@ def _get_mood(my_team, r):
             return "No"
 
 
+def _get_cheer(my_team, m):
+    if m.tanker == my_team:
+        if m.tanker == m.game.away:
+            team = m.game.home
+        else:
+            team = m.game.away
+    else:
+        team = m.tanker
+    return _get_team(team) + " (OT)" if m.overtime else ""
+
+
 def _get_team(t):
     return '[](/r/{}) {}'.format(t.subreddit, t.code.upper())
 
@@ -51,7 +62,7 @@ def _generate_game_line(my_team, r):
     yield "{} at {}|{}|{}".format(
         _get_team(r.game.away),
         _get_team(r.game.home),
-        _get_team(r.tanker) + (" (OT)" if r.overtime else ""),
+        _get_cheer(my_team, r),
         r.time,
     )
 
