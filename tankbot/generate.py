@@ -39,7 +39,7 @@ def _get_cheer(my_team, m):
             team = m.game.away
     else:
         team = m.tanker
-    return _get_team(team) + " (OT)" if m.overtime else ""
+    return _get_team(team) + (" (OT)" if m.overtime else "")
 
 
 def _get_team(t):
