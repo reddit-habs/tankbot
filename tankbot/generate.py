@@ -1,13 +1,21 @@
-# Is this a good idea? Probably not.
-def _underline_header(header):
-    return "|".join([":---:"] * len(header.split('|')))
+from .analysis import Analysis
+from .markdown import Document, List, H1, H2, Paragraph, Table
 
 
-def _get_mood(my_team, r):
+def fmt_team(team):
+    return f"[](/r/{team.subreddit}) {team.code.upper()}"
+
+
+def fmt_vs(away, home):
+    return f"{fmt_team(away)} at {fmt_team(home)}"
+
+
+def get_mood(a: Analysis, r):
+    # TODO cleanup this mess
     # if the team is my team, we want to lose
-    if r.tanker == my_team:
+    if r.tanker == a.my_team:
         # our team won, bad
-        if r.game.winner == my_team:
+        if r.game.winner == a.my_team:
             return "No"
         # game went to overtime, meh
         elif r.game.overtime:
@@ -31,101 +39,111 @@ def _get_mood(my_team, r):
             return "No"
 
 
-def _get_cheer(my_team, m):
-    if m.tanker == my_team:
+def get_cheer(a: Analysis, m):
+    if m.tanker == a.my_team:
         if m.tanker == m.game.away:
             team = m.game.home
         else:
             team = m.game.away
     else:
         team = m.tanker
-    return _get_team(team) + (" (OT)" if m.overtime else "")
+    if m.overtime:
+        return f"{fmt_team(team)} (OT)"
+    else:
+        return fmt_team(team)
 
 
-def _get_team(t):
-    return '[](/r/{}) {}'.format(t.subreddit, t.code.upper())
+def make_result_table(a: Analysis, results):
+    t = Table()
+    t.add_columns("Game", "Score", "Yay?")
+
+    for r in results:
+        ot = "(OT)" if r.game.overtime else ""
+        t.add_row(
+            fmt_vs(r.game.away, r.game.home),
+            f"{r.game.away_score}-{r.game.home_score} {fmt_team(r.game.winner)} {ot}",
+            get_mood(a, r),
+        )
+
+    return t
 
 
-def _generate_result_line(my_team, r):
-    yield "{} at {}|{}-{} {} {}|{}".format(
-        _get_team(r.game.away),
-        _get_team(r.game.home),
-        r.game.away_score,
-        r.game.home_score,
-        _get_team(r.game.winner),
-        "(OT)" if r.game.overtime else "",
-        _get_mood(my_team, r),
-    )
-
-
-def _generate_game_line(my_team, r):
-    yield "{} at {}|{}|{}".format(
-        _get_team(r.game.away),
-        _get_team(r.game.home),
-        _get_cheer(my_team, r),
-        r.time,
-    )
-
-
-def _generate_standings(standings):
-    header = "Place|Team|GP|Record|Points|ROW|L10|1st OA odds"
-    header_lines = _underline_header(header)
-    yield "## Standings"
-    yield ""
-    yield header
-    yield header_lines
-    for s in standings:
-        yield "{}|{}|{}|{}|{}|{}|{}|{:0.1f}%".format(
+def make_standings_table(a: Analysis):
+    t = Table()
+    t.add_columns("Place", "Team", "GP", "Record", "Points", "ROW", "L10", "1st OA odds")
+    for s in a.standings:
+        t.add_row(
             s.place,
-            _get_team(s.team),
+            fmt_team(s.team),
             s.gamesPlayed,
-            "{}-{}-{}".format(s.wins, s.losses, s.ot),
+            s.record,
             s.points,
             s.row,
             s.last10,
             s.odds,
         )
-    yield ""
-    yield "[Lottery odds, as well as a Lottery Simulator can be found here.](http://nhllotterysimulator.com)"
-    yield ""
+    return t
 
 
-def _generate_tank_section(my_team, my, lst, title, header, func):
-    header_lines = _underline_header(header)
-    yield "## {}".format(title)
-    yield ""
-    yield "- De Tanque:"
-    yield ""
-    if my:
-        yield header
-        yield header_lines
-        yield from func(my_team, my)
+def make_games_table(a: Analysis, games):
+    t = Table()
+    t.add_columns("Game", "Cheer for?", "Time")
+    for g in games:
+        t.add_row(
+            fmt_vs(g.game.away, g.game.home),
+            get_cheer(a, g),
+            g.time,
+        )
+    return t
+
+
+def generate(a: Analysis):
+    doc = Document()
+    doc.add(H1("Scouting the Tank"))
+
+    # results
+
+    # own result
+    doc.add(H2("Last night's tank"))
+    doc.add(List(["De Tanque:"]))
+    if a.my_result:
+        t = make_result_table(a, [a.my_result])
+        doc.add(t)
     else:
-        yield "Nothing."
-    yield ""
-    yield "- Out of town tank:"
-    yield ""
-    if len(lst) > 0:
-        yield header
-        yield header_lines
-        for entry in lst:
-            yield from func(my_team, entry)
+        doc.add(Paragraph("Nothing."))
+
+    # out of town results
+    doc.add(List(["Out of town tank:"]))
+    if len(a.results) > 0:
+        t = make_result_table(a, a.results)
+        doc.add(t)
     else:
-        yield "Nothing out of town."
-    yield ""
+        doc.add(Paragraph("Nothing out of town."))
 
+    # standings
+    doc.add(H2("Standings"))
+    doc.add(make_standings_table(a))
+    doc.add(
+        Paragraph("[Lottery odds, as well as a Lottery Simulator can be found here.](http://nhllotterysimulator.com)")
+    )
 
-def _generate(info, my_team, my_result, results, my_game, games, standings):
-    yield "# Scouting the Tank"
-    yield from _generate_tank_section(my_team, my_result, results,
-                                      "Last night's tank", "Game|Score|Yay?", _generate_result_line)
-    yield "---"
-    yield from _generate_standings(standings)
-    yield "---"
-    yield from _generate_tank_section(my_team, my_game, games,
-                                      "Tonight's tank", "Game|Cheer for?|Time", _generate_game_line)
-    yield ""
+    # games
 
+    # own game
+    doc.add(H2("Tonight's tank"))
+    doc.add(List(["De Tanque:"]))
+    if a.my_game:
+        t = make_games_table(a, [a.my_game])
+        doc.add(t)
+    else:
+        doc.add(Paragraph("Nothing."))
 
-def generate(*args):
-    return '\n'.join(_generate(*args))
+    # out of town games
+    doc.add(List(["Out of town tank:"]))
+    if len(a.games) > 0:
+        t = make_games_table(a, a.games)
+        doc.add(t)
+    else:
+        doc.add(Paragraph("Nothing out of town."))
+
+    return doc.render()

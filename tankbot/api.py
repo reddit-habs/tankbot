@@ -9,6 +9,10 @@ from requests import Request, Session
 from . import localdata
 
 
+def _format_record(wins, losses, ot):
+    return f"{wins}-{losses}-{ot}"
+
+
 @attrs(slots=True, hash=True)
 class Team:
     id = attrib()
@@ -28,6 +32,7 @@ class Standing:
     points = attrib()
     wins = attrib()
     losses = attrib()
+    record = attrib(init=False)
     ot = attrib()
     row = attrib()
     last10 = attrib()
@@ -35,6 +40,7 @@ class Standing:
     odds = attrib(init=False)
 
     def __attrs_post_init__(self):
+        self.record = _format_record(self.wins, self.losses, self.ot)
         self.projection = round((self.points / self.gamesPlayed) * 82)
 
 
@@ -112,7 +118,7 @@ class Info:
         filtered = [r for r in entry['records']['overallRecords'] if r['type'] == "lastTen"]
         if len(filtered) > 0:
             rec = filtered[0]
-            return '{}-{}-{}'.format(rec['wins'], rec['losses'], rec['ot'])
+            return _format_record(rec['wins'], rec['losses'], rec['ot'])
         else:
             return "N/A"
 
