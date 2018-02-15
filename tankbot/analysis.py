@@ -4,7 +4,8 @@ from attr import attrs, attrib
 @attrs(slots=True)
 class Matchup:
     game = attrib()
-    tanker = attrib(default=None)
+    tanker = attrib(init=False)
+    ideal_winner = attrib(init=False)
     overtime = attrib(default=False)
     time = attrib(init=False)
 
@@ -58,10 +59,13 @@ class Analysis:
 
         if game.home == self.my_team:
             m.tanker = game.home
+            m.ideal_winner = game.away
         elif game.away == self.my_team:
             m.tanker = game.away
+            m.ideal_winner = game.home
         else:
             if self.is_team_in_range(game.home) and self.is_team_in_range(game.away):
                 m.overtime = True
             m.tanker = min((game.home, game.away), key=lambda team: team.standing.points)
+            m.ideal_winner = m.tanker
         return m

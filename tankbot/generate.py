@@ -11,32 +11,25 @@ def fmt_vs(away, home):
 
 
 def get_mood(a: Analysis, r):
-    # TODO cleanup this mess
-    # if the team is my team, we want to lose
-    if r.tanker == a.my_team:
-        # our team won, bad
-        if r.game.winner == a.my_team:
-            return "No"
-        # game went to overtime, meh
-        elif r.game.overtime:
-            return "Half yay"
-        # no points for us, perfect
-        else:
-            return "Yes"
-    # if the tanker isn't my team, we want him to win
-    else:
-        # if should have went to overtime and it did, perfect
-        if r.overtime and r.game.overtime:
+    if r.overtime and r.game.overtime:
+        # game had to go to OT and it did
+        if r.ideal_winner == r.game.winner:
+            # the lower team won
             return "Perfect"
-        # if the enemy tanker won
-        elif r.tanker == r.game.winner:
-            return "Yes"
-        # if the enemy tanker didn't win but went to OT
-        elif r.game.overtime:
-            return "Half yay"
-        # no win, no OT
         else:
-            return "No"
+            # the lower team didn't win
+            return "Almost perfect"
+    elif r.ideal_winner == r.game.winner:
+        # the ideal winner won
+        if r.game.overtime and (a.my_team == r.game.away or a.my_team == r.game.home):
+            # the ideal winner won, but our team is involved and it went to OT
+            return "Half yay"
+        return "Yes"
+    elif r.game.overtime:
+        # game went to overtime
+        return "Half yay"
+    else:
+        return "No"
 
 
 def get_cheer(a: Analysis, m):
