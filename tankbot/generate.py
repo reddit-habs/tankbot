@@ -1,5 +1,5 @@
 from .analysis import Analysis
-from .markdown import Document, List, H1, H2, Paragraph, Table
+from .markdown import Document, List, H1, H2, HorizontalRule, Paragraph, Table
 
 
 def fmt_team(team):
@@ -106,6 +106,7 @@ def generate(a: Analysis):
         doc.add(t)
     else:
         doc.add(Paragraph("Nothing out of town."))
+    doc.add(HorizontalRule())
 
     # standings
     doc.add(H2("Standings"))
@@ -113,6 +114,7 @@ def generate(a: Analysis):
     doc.add(
         Paragraph("[Lottery odds, as well as a Lottery Simulator can be found here.](http://nhllotterysimulator.com)")
     )
+    doc.add(HorizontalRule())
 
     # games
 
