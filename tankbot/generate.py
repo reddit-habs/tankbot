@@ -13,12 +13,7 @@ def fmt_vs(away, home):
 def get_mood(a: Analysis, r):
     if r.overtime and r.game.overtime:
         # game had to go to OT and it did
-        if r.ideal_winner == r.game.winner:
-            # the lower team won
-            return "Perfect"
-        else:
-            # the lower team didn't win
-            return "Almost perfect"
+        return "Perfect"
     elif r.ideal_winner == r.game.winner:
         # the ideal winner won
         if r.game.overtime and (a.my_team == r.game.away or a.my_team == r.game.home):
