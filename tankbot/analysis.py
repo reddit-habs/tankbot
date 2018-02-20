@@ -22,7 +22,7 @@ class Analysis:
     my_game = attrib(init=False)  # my team's game tonight
     games = attrib(init=False)  # games tonight
     standings = attrib(init=False)  # relevant standings
-    reach = attrib(default=5)
+    reach = attrib(default=10)
 
     def __attrs_post_init__(self):
         self.my_result, self.results = self._compute_matchups(self.info.results, past=True)

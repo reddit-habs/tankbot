@@ -1,13 +1,16 @@
 from .analysis import Analysis
 from .markdown import Document, List, H1, H2, HorizontalRule, Paragraph, Table
+from .util import f
 
 
 def fmt_team(team):
-    return f"[](/r/{team.subreddit}) {team.code.upper()}"
+    # return f"[](/r/{team.subreddit}) {team.code.upper()}"
+    return f("[](/r/{}) {}", team.subreddit, team.code.upper())
 
 
 def fmt_vs(away, home):
-    return f"{fmt_team(away)} at {fmt_team(home)}"
+    # return f"{fmt_team(away)} at {fmt_team(home)}"
+    return f("{} at {}", fmt_team(away), fmt_team(home))
 
 
 def get_mood(a: Analysis, r):
@@ -30,7 +33,8 @@ def get_mood(a: Analysis, r):
 def get_cheer(a: Analysis, m):
     team = m.ideal_winner
     if m.overtime:
-        return f"{fmt_team(team)} (OT)"
+        # return f"{fmt_team(team)} (OT)"
+        return f("{} (OT)", fmt_team(team))
     else:
         return fmt_team(team)
 
@@ -43,7 +47,8 @@ def make_result_table(a: Analysis, results):
         ot = "(OT)" if r.game.overtime else ""
         t.add_row(
             fmt_vs(r.game.away, r.game.home),
-            f"{r.game.away_score}-{r.game.home_score} {fmt_team(r.game.winner)} {ot}",
+            # f"{r.game.away_score}-{r.game.home_score} {fmt_team(r.game.winner)} {ot}",
+            f("{}-{} {} {}", r.game.away_score, r.game.home_score, fmt_team(r.game.winner), ot),
             get_mood(a, r),
         )
 

@@ -42,4 +42,4 @@ if __name__ == '__main__':
 
             sub = reddit.subreddit(config['subreddit'])
             title = "Scouting the Tank: {}".format(info.date.format('MMMM Do, YYYY'))
-            sub.submit(title, selftext=text)
+            sub.submit(title, selftext=text, send_replies=False)

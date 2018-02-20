@@ -7,10 +7,12 @@ from fake_useragent import UserAgent
 from requests import Request, Session
 
 from . import localdata
+from .util import f
 
 
 def _format_record(wins, losses, ot):
-    return f"{wins}-{losses}-{ot}"
+    # return f"{wins}-{losses}-{ot}"
+    return f("{}-{}-{}", wins, losses, ot)
 
 
 @attrs(slots=True, hash=True)
