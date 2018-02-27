@@ -4,9 +4,9 @@ from attr import attrs, attrib
 @attrs(slots=True)
 class Matchup:
     game = attrib()
-    tanker = attrib(init=False)
     ideal_winner = attrib(init=False)
-    overtime = attrib(default=False)
+    both_in_range = attrib(default=False)
+    my_team_involved = attrib(default=False)
     time = attrib(init=False)
 
     def __attrs_post_init__(self):
@@ -58,15 +58,17 @@ class Analysis:
     def _matchup_from_game(self, game, past=False):
         m = Matchup(game)
 
+        m.both_in_range = self.is_team_in_range(game.away) and self.is_team_in_range(game.home)
+        m.my_team_involved = game.away == self.my_team or game.home == self.my_team
+
         if game.home == self.my_team:
-            m.tanker = game.home
             m.ideal_winner = game.away
         elif game.away == self.my_team:
-            m.tanker = game.away
             m.ideal_winner = game.home
         else:
-            if self.is_team_in_range(game.home, past) and self.is_team_in_range(game.away, past):
-                m.overtime = True
-            m.tanker = min((game.home, game.away), key=lambda team: self.info.get_standing(team, past).points)
-            m.ideal_winner = m.tanker
+            # finds the closest team in the standings to our team
+            my_points = self.info.get_standing(self.my_team, past=past).points
+            points_team = [(self.info.get_standing(t, past=past).points, t) for t in (game.away, game.home)]
+            _, closest_t = min(points_team, key=lambda s: abs(s[0] - my_points))
+            m.ideal_winner = closest_t
         return m

@@ -1,4 +1,4 @@
-from .analysis import Analysis
+from .analysis import Analysis, Matchup
 from .markdown import Document, List, H1, H2, HorizontalRule, Paragraph, Table
 from .util import f
 
@@ -13,26 +13,26 @@ def fmt_vs(away, home):
     return f("{} at {}", fmt_team(away), fmt_team(home))
 
 
-def get_mood(a: Analysis, r):
-    if r.overtime and r.game.overtime:
+def get_mood(a: Analysis, r: Matchup):
+    if r.both_in_range and r.game.overtime:
         # game had to go to OT and it did
         return "Perfect"
     elif r.ideal_winner == r.game.winner:
         # the ideal winner won
-        if r.game.overtime and (a.my_team == r.game.away or a.my_team == r.game.home):
+        if r.game.overtime and r.my_team_involved:
             # the ideal winner won, but our team is involved and it went to OT
             return "Half yay"
         return "Yes"
-    elif r.game.overtime:
-        # game went to overtime
+    elif r.game.overtime or r.both_in_range:
+        # game went to overtime, or two in range team played and the ideal winner did not win
         return "Half yay"
     else:
         return "No"
 
 
-def get_cheer(a: Analysis, m):
+def get_cheer(a: Analysis, m: Matchup):
     team = m.ideal_winner
-    if m.overtime:
+    if m.both_in_range:
         # return f"{fmt_team(team)} (OT)"
         return f("{} (OT)", fmt_team(team))
     else:
