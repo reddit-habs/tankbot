@@ -1,5 +1,6 @@
 import argparse
 import json
+import sys
 
 import arrow
 import praw
@@ -26,20 +27,27 @@ if __name__ == '__main__':
         test = config.get("test", False)
 
         info = CachedInfo(args.date) if test else Info(args.date)
-        my_team = info.get_team_by_code(config['my_team'])
-        analysis = Analysis(info, my_team)
 
-        text = generate(analysis)
-
-        if test:
-            print(text)
-        else:
+        if not test:
             reddit = praw.Reddit(client_id=config['client_id'],
                                  client_secret=config['client_secret'],
                                  username=config['username'],
                                  password=config['password'],
                                  user_agent=config['user_agent'])
 
-            sub = reddit.subreddit(config['subreddit'])
-            title = "Scouting the Tank: {}".format(info.date.format('MMMM Do, YYYY'))
-            sub.submit(title, selftext=text, send_replies=False)
+        for team in config['teams']:
+            my_team = info.get_team_by_code(team)
+            analysis = Analysis(info, my_team)
+
+            text = generate(analysis)
+
+            if test:
+                with open("{}.md".format(my_team.code), "w") as f:
+                    f.write(text)
+            else:
+                try:
+                    sub = reddit.subreddit(my_team.subreddit)
+                    title = "Scouting the Tank: {}".format(info.date.format('MMMM Do, YYYY'))
+                    sub.submit(title, selftext=text, send_replies=False)
+                except Exception as e:
+                    print('Error sending', e, file=sys.stderr)
