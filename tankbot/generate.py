@@ -1,4 +1,4 @@
-from .analysis import Analysis, Matchup
+from .analysis import Analysis, Matchup, Mood
 from .markdown import Document, List, H1, H2, HorizontalRule, Paragraph, Table
 from .util import f
 
@@ -13,26 +13,17 @@ def fmt_vs(away, home):
     return f("{} at {}", fmt_team(away), fmt_team(home))
 
 
-def get_mood(a: Analysis, r: Matchup):
-    if r.both_in_range and r.game.overtime:
-        # game had to go to OT and it did
-        return "Perfect"
-    elif r.ideal_winner == r.game.winner:
-        # the ideal winner won
-        if r.game.overtime and r.my_team_involved:
-            # the ideal winner won, but our team is involved and it went to OT
-            return "Half yay"
-        return "Yes"
-    elif r.game.overtime or r.both_in_range:
-        # game went to overtime, or two in range team played and the ideal winner did not win
-        return "Half yay"
-    else:
-        return "No"
+_moods = {}
+_moods[Mood.WORST] = "No"
+_moods[Mood.PASSABLE] = "Half yay"
+_moods[Mood.GOOD] = "Yes"
+_moods[Mood.ALMOST_PERFECT] = "Almost perfect"
+_moods[Mood.PERFECT] = "Perfect"
 
 
 def get_cheer(a: Analysis, m: Matchup):
-    team = m.ideal_winner
-    if m.both_in_range and not m.my_team_involved:
+    team, overtime = m.get_cheer()
+    if overtime:
         # return f"{fmt_team(team)} (OT)"
         return f("{} (OT)", fmt_team(team))
     else:
@@ -49,7 +40,7 @@ def make_result_table(a: Analysis, results):
             fmt_vs(r.game.away, r.game.home),
             # f"{r.game.away_score}-{r.game.home_score} {fmt_team(r.game.winner)} {ot}",
             f("{}-{} {} {}", r.game.away_score, r.game.home_score, fmt_team(r.game.winner), ot),
-            get_mood(a, r),
+            _moods[r.get_mood()],
         )
 
     return t

@@ -1,5 +1,17 @@
 from attr import attrs, attrib
 
+from enum import Enum
+
+from .api import Result
+
+
+class Mood(Enum):
+    WORST = 0
+    PASSABLE = 1
+    GOOD = 2
+    ALMOST_PERFECT = 3
+    PERFECT = 4
+
 
 @attrs(slots=True)
 class Matchup:
@@ -11,6 +23,30 @@ class Matchup:
 
     def __attrs_post_init__(self):
         self.time = self.game.time.format('HH:mm')
+
+    def get_cheer(self):
+        return (self.ideal_winner, self.both_in_range and not self.my_team_involved)
+
+    def get_mood(self):
+        if not isinstance(self.game, Result):
+            raise ValueError("cannot compute mood on a non-result")
+
+        if self.both_in_range and not self.my_team_involved and self.game.overtime:
+            # game had to go to OT, did not involve my team and went to overtime
+            if self.ideal_winner != self.game.winner:
+                return Mood.ALMOST_PERFECT
+            return Mood.PERFECT
+        elif self.ideal_winner == self.game.winner:
+            # the ideal winner won
+            if self.game.overtime and self.my_team_involved:
+                # the ideal winner won, but our team is involved and it went to OT
+                return Mood.PASSABLE
+            return Mood.GOOD
+        elif self.game.overtime or (self.both_in_range and not self.my_team_involved):
+            # game went to overtime, or two in-range team played and the ideal winner did not win
+            return Mood.PASSABLE
+        else:
+            return Mood.WORST
 
 
 @attrs(slots=True)
