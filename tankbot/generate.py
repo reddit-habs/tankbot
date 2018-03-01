@@ -32,7 +32,7 @@ def get_mood(a: Analysis, r: Matchup):
 
 def get_cheer(a: Analysis, m: Matchup):
     team = m.ideal_winner
-    if m.both_in_range:
+    if m.both_in_range and not m.my_team_involved:
         # return f"{fmt_team(team)} (OT)"
         return f("{} (OT)", fmt_team(team))
     else:
