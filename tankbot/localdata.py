@@ -31,7 +31,6 @@ goldenknights
 caps
 winnipegjets
 """
-
 subreddits = _SUBREDDITS.splitlines()
 
 _LOTTERY = """\

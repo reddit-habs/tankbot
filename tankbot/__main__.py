@@ -6,36 +6,38 @@ import arrow
 import praw
 
 from .analysis import Analysis
-from .api import CachedInfo, Info
+from .api import Info
 from .generate import generate
 
 
 def date(s):
     try:
-        return arrow.get(s, 'YYYY-MM-DD')
+        return arrow.get(s, "YYYY-MM-DD")
     except arrow.parser.ParserError:
         raise ValueError("invalid date")
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog='tankbot')
-    parser.add_argument('--date', default=None, help="date to analyse, YYYY-MM-DD format", type=date)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(prog="tankbot")
+    parser.add_argument("--date", default=None, help="date to analyse, YYYY-MM-DD format", type=date)
     args = parser.parse_args()
 
-    with open('config.json') as f:
+    with open("config.json") as f:
         config = json.load(f)
         test = config.get("test", False)
 
-        info = CachedInfo(args.date) if test else Info(args.date)
+        info = Info(args.date)
 
         if not test:
-            reddit = praw.Reddit(client_id=config['client_id'],
-                                 client_secret=config['client_secret'],
-                                 username=config['username'],
-                                 password=config['password'],
-                                 user_agent=config['user_agent'])
+            reddit = praw.Reddit(
+                client_id=config["client_id"],
+                client_secret=config["client_secret"],
+                username=config["username"],
+                password=config["password"],
+                user_agent=config["user_agent"],
+            )
 
-        for team in config['teams']:
+        for team in config["teams"]:
             my_team = info.get_team_by_code(team)
             analysis = Analysis(info, my_team)
 
@@ -47,7 +49,7 @@ if __name__ == '__main__':
             else:
                 try:
                     sub = reddit.subreddit(my_team.subreddit)
-                    title = "Scouting the Tank: {}".format(info.date.format('MMMM Do, YYYY'))
+                    title = "Scouting the Tank: {}".format(info.date.format("MMMM Do, YYYY"))
                     sub.submit(title, selftext=text, send_replies=False)
                 except Exception as e:
-                    print('Error sending', e, file=sys.stderr)
+                    print("Error sending", e, file=sys.stderr)

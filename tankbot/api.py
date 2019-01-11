@@ -1,10 +1,8 @@
-import json
+from attr import attrib, attrs
 
 import arrow
-import requests
-from attr import attrs, attrib
-from fake_useragent import UserAgent
-from requests import Request, Session
+import nhlapi.io
+from nhlapi.endpoints import NHLAPI
 
 from . import localdata
 from .util import f
@@ -64,11 +62,9 @@ class Result(Game):
 
 
 class Info:
-
     def __init__(self, date=None):
         if date is None:
             date = arrow.now()
-        self._ua = UserAgent()
         self.date = date
         self.past_date = date.shift(days=-1)
         self.teams = []
@@ -79,6 +75,7 @@ class Info:
         self._team_code_map = {}
         self._standings_team_map = {}
         self._past_standings_team_map = {}
+        self._client = NHLAPI(nhlapi.io.Client())
 
         self._get_teams()
 
@@ -101,21 +98,16 @@ class Info:
             return self._past_standings_team_map[team]
         return self._standings_team_map[team]
 
-    def _fetch_json(self, url, params=None):
-        headers = {
-            'User-Agent': self._ua.random,
-        }
-        resp = requests.get(url, params=params, headers=headers)
-        return resp.json()
-
     def _get_teams(self):
-        data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/teams")
-        for entry in data['teams']:
-            team = Team(id=entry['id'],
-                        code=entry['abbreviation'],
-                        fullname=entry['name'],
-                        location=entry['locationName'],
-                        name=entry['teamName'])
+        data = self._client.teams()
+        for entry in data.teams:
+            team = Team(
+                id=entry.id,
+                code=entry.abbreviation,
+                fullname=entry.name,
+                location=entry.locationName,
+                name=entry.teamName,
+            )
             self.teams.append(team)
             self._team_id_map[team.id] = team
             self._team_code_map[team.code.lower()] = team
@@ -127,29 +119,30 @@ class Info:
             team.subreddit = localdata.subreddits[idx]
 
     def _get_last10(self, entry):
-        filtered = [r for r in entry['records']['overallRecords'] if r['type'] == "lastTen"]
+        filtered = [r for r in entry["records"]["overallRecords"] if r["type"] == "lastTen"]
         if len(filtered) > 0:
             rec = filtered[0]
-            return _format_record(rec['wins'], rec['losses'], rec['ot'])
+            return _format_record(rec["wins"], rec["losses"], rec["ot"])
         else:
             return "N/A"
 
     def _get_standings(self, date):
-        data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/standings/byLeague?expand=standings.record",
-                                params=dict(date=date.date().isoformat()))
+        data = self._client.standings(expand="standings.record")
         standings = []
         place = 1
-        for entry in data['records'][0]['teamRecords']:
-            team = self.get_team_by_id(entry['team']['id'])
-            standing = Standing(team=team,
-                                place=place,
-                                gamesPlayed=entry['gamesPlayed'],
-                                points=entry['points'],
-                                wins=entry['leagueRecord']['wins'],
-                                losses=entry['leagueRecord']['losses'],
-                                ot=entry['leagueRecord']['ot'],
-                                row=entry['row'],
-                                last10=self._get_last10(entry))
+        for entry in data.records[0].teamRecords:
+            team = self.get_team_by_id(entry.team.id)
+            standing = Standing(
+                team=team,
+                place=place,
+                gamesPlayed=entry.gamesPlayed,
+                points=entry.points,
+                wins=entry.leagueRecord.wins,
+                losses=entry.leagueRecord.losses,
+                ot=entry.leagueRecord.ot,
+                row=entry.row,
+                last10=self._get_last10(entry),
+            )
             standings.append(standing)
             place += 1
         self._load_lottery_odds(standings)
@@ -168,58 +161,27 @@ class Info:
 
     def _get_games(self):
         today = self.date.date().isoformat()
-        data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/schedule",
-                                params=dict(startDate=today, endDate=today))
-        for entry in data['dates'][0]['games']:
-            date = arrow.get(entry['gameDate']).to('local')
-            home = self.get_team_by_id(entry['teams']['home']['team']['id'])
-            away = self.get_team_by_id(entry['teams']['away']['team']['id'])
+        data = self._client.schedule(start_date=today, end_date=today)
+        for entry in data.dates[0].games:
+            date = arrow.get(entry.gameDate).to("local")
+            home = self.get_team_by_id(entry.teams.home.team.id)
+            away = self.get_team_by_id(entry.teams.away.team.id)
             game = Game(time=date, home=home, away=away)
             self.games.append(game)
 
     def _get_results(self):
-        yeserday = self.past_date.date().isoformat()
-        data = self._fetch_json("https://statsapi.web.nhl.com/api/v1/schedule",
-                                params=dict(startDate=yeserday, endDate=yeserday, expand="schedule.linescore"))
-        for entry in data['dates'][0]['games']:
-            date = arrow.get(entry['gameDate']).to('local')
-            home = self.get_team_by_id(entry['teams']['home']['team']['id'])
-            away = self.get_team_by_id(entry['teams']['away']['team']['id'])
-            result = Result(time=date, home=home, away=away,
-                            home_score=entry['teams']['home']['score'],
-                            away_score=entry['teams']['away']['score'],
-                            overtime=len(entry['linescore']['periods']) > 3)
+        yesterday = self.past_date.date().isoformat()
+        data = self._client.schedule(start_date=yesterday, end_date=yesterday, expand="schedule.linescore")
+        for entry in data.dates[0].games:
+            date = arrow.get(entry.gameDate).to("local")
+            home = self.get_team_by_id(entry.teams.home.team.id)
+            away = self.get_team_by_id(entry.teams.away.team.id)
+            result = Result(
+                time=date,
+                home=home,
+                away=away,
+                home_score=entry.teams.home.score,
+                away_score=entry.teams.away.score,
+                overtime=len(entry.linescore.periods) > 3,
+            )
             self.results.append(result)
-
-
-class CachedInfo(Info):
-
-    def __init__(self, *args, **kwargs):
-        self._session = Session()
-        self._cache = {}
-        self._load()
-        Info.__init__(self, *args, **kwargs)
-
-    def _load(self):
-        try:
-            with open('request_cache.json') as f:
-                self._cache = json.load(f)
-        except FileNotFoundError:
-            pass
-
-    def _save(self):
-        with open('request_cache.json', 'w') as f:
-            json.dump(self._cache, f)
-
-    def _fetch_json(self, url, params=None):
-        req = Request('GET', url, params=params)
-        prep = req.prepare()
-        entry = self._cache.get(prep.url)
-        if entry is not None:
-            return entry
-        else:
-            res = self._session.send(prep)
-            data = res.json()
-            self._cache[res.url] = data
-            self._save()
-            return data
