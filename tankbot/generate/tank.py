@@ -1,6 +1,6 @@
-from .analysis import Analysis, Matchup, Mood
-from .markdown import Document, List, H1, H2, HorizontalRule, Paragraph, Table
-from .util import f
+from ..analysis.tank import Analysis, Matchup
+from ..markdown import H1, H2, Document, HorizontalRule, List, Paragraph, Table
+from ..util import f
 
 
 def fmt_team(team):
@@ -13,21 +13,13 @@ def fmt_vs(away, home):
     return f("{} at {}", fmt_team(away), fmt_team(home))
 
 
-_moods = {}
-_moods[Mood.WORST] = "No"
-_moods[Mood.PASSABLE] = "Half yay"
-_moods[Mood.GOOD] = "Yes"
-_moods[Mood.ALMOST_PERFECT] = "Almost perfect"
-_moods[Mood.PERFECT] = "Perfect"
-
-
 def get_cheer(a: Analysis, m: Matchup):
-    team, overtime = m.get_cheer()
-    if overtime:
+    cheer = m.get_cheer()
+    if cheer.overtime:
         # return f"{fmt_team(team)} (OT)"
-        return f("{} (OT)", fmt_team(team))
+        return f("{} (OT)", fmt_team(cheer.team))
     else:
-        return fmt_team(team)
+        return fmt_team(cheer.team)
 
 
 def make_result_table(a: Analysis, results):
@@ -40,7 +32,7 @@ def make_result_table(a: Analysis, results):
             fmt_vs(r.game.away, r.game.home),
             # f"{r.game.away_score}-{r.game.home_score} {fmt_team(r.game.winner)} {ot}",
             f("{}-{} {} {}", r.game.away_score, r.game.home_score, fmt_team(r.game.winner), ot),
-            _moods[r.get_mood()],
+            str(r.get_mood()),
         )
 
     return t
@@ -50,16 +42,7 @@ def make_standings_table(a: Analysis):
     t = Table()
     t.add_columns("Place", "Team", "GP", "Record", "Points", "ROW", "L10", "1st OA odds")
     for s in a.standings:
-        t.add_row(
-            s.place,
-            fmt_team(s.team),
-            s.gamesPlayed,
-            s.record,
-            s.points,
-            s.row,
-            s.last10,
-            s.odds,
-        )
+        t.add_row(s.place, fmt_team(s.team), s.gamesPlayed, s.record, s.points, s.row, s.last10, s.odds)
     return t
 
 
@@ -67,11 +50,7 @@ def make_games_table(a: Analysis, games):
     t = Table()
     t.add_columns("Game", "Cheer for?", "Time")
     for g in games:
-        t.add_row(
-            fmt_vs(g.game.away, g.game.home),
-            get_cheer(a, g),
-            g.time,
-        )
+        t.add_row(fmt_vs(g.game.away, g.game.home), get_cheer(a, g), g.time)
     return t
 
 

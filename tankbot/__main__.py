@@ -5,9 +5,9 @@ import sys
 import arrow
 import praw
 
-from .analysis import Analysis
+from .analysis.tank import Analysis
 from .api import Info
-from .generate import generate
+from .generate.tank import generate
 
 
 def date(s):

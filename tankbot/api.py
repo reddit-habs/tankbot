@@ -20,6 +20,8 @@ class Team:
     fullname = attrib(cmp=False)
     name = attrib(cmp=False)
     location = attrib(cmp=False)
+    division = attrib(cmp=False)
+    conference = attrib(cmp=False)
     subreddit = attrib(init=False)
 
 
@@ -107,6 +109,8 @@ class Info:
                 fullname=entry.name,
                 location=entry.locationName,
                 name=entry.teamName,
+                division=entry.division.name,
+                conference=entry.conference.name,
             )
             self.teams.append(team)
             self._team_id_map[team.id] = team

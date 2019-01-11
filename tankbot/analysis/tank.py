@@ -1,20 +1,11 @@
-from attr import attrs, attrib
+from attr import attrib, attrs
 
-from enum import Enum
-
-from .api import Result
-
-
-class Mood(Enum):
-    WORST = 0
-    PASSABLE = 1
-    GOOD = 2
-    ALMOST_PERFECT = 3
-    PERFECT = 4
+from . import BaseMatchup, Cheer, Mood
+from ..api import Result
 
 
 @attrs(slots=True)
-class Matchup:
+class Matchup(BaseMatchup):
     game = attrib()
     ideal_winner = attrib(init=False)
     both_in_range = attrib(default=False)
@@ -22,31 +13,41 @@ class Matchup:
     time = attrib(init=False)
 
     def __attrs_post_init__(self):
-        self.time = self.game.time.format('HH:mm')
+        self.time = self.game.time.format("HH:mm")
 
     def get_cheer(self):
-        return (self.ideal_winner, self.both_in_range and not self.my_team_involved)
+        return Cheer(self.ideal_winner, self.both_in_range and not self.my_team_involved)
 
     def get_mood(self):
         if not isinstance(self.game, Result):
             raise ValueError("cannot compute mood on a non-result")
 
-        if self.both_in_range and not self.my_team_involved and self.game.overtime:
-            # game had to go to OT, did not involve my team and went to overtime
+        if self.my_team_involved:
             if self.ideal_winner != self.game.winner:
-                return Mood.ALMOST_PERFECT
-            return Mood.PERFECT
-        elif self.ideal_winner == self.game.winner:
-            # the ideal winner won
-            if self.game.overtime and self.my_team_involved:
-                # the ideal winner won, but our team is involved and it went to OT
-                return Mood.PASSABLE
-            return Mood.GOOD
-        elif self.game.overtime or (self.both_in_range and not self.my_team_involved):
-            # game went to overtime, or two in-range team played and the ideal winner did not win
-            return Mood.PASSABLE
+                # my team won
+                if self.both_in_range and self.game.overtime:
+                    # the other team is in range and the game went to OT
+                    return Mood.WORST
+                return Mood.BAD
+            else:
+                # my team lost
+                if self.game.overtime:
+                    # the game went to OT
+                    return Mood.GOOD
+                return Mood.GREAT
         else:
-            return Mood.WORST
+            if self.ideal_winner != self.game.winner:
+                # ideal team did not win
+                if self.both_in_range and self.game.overtime:
+                    # the game went to overtime and the ideal team still got a point
+                    return Mood.BAD
+                return Mood.WORST
+            else:
+                # ideal team won
+                if self.both_in_range and self.game.overtime:
+                    # the other team is in range and it got a point
+                    return Mood.GREAT
+                return Mood.GOOD
 
 
 @attrs(slots=True)
@@ -63,24 +64,24 @@ class Analysis:
     def __attrs_post_init__(self):
         self.my_result, self.results = self._compute_matchups(self.info.results, past=True)
         self.my_game, self.games = self._compute_matchups(self.info.games)
-        self.standings = [s for s in self.info.standings if self.is_team_in_range(s.team)]
+        self.standings = [s for s in self.info.standings if self._is_team_in_range(s.team)]
 
-    def is_team_in_range(self, other, past=False):
+    def _is_team_in_range(self, other, past=False):
         if self.my_team == other:
             return True
         my_points = self.info.get_standing(self.my_team, past).points
         other_points = self.info.get_standing(other, past).points
-        return (other_points <= my_points or abs(other_points - my_points) <= self.reach)
+        return other_points <= my_points or abs(other_points - my_points) <= self.reach
 
-    def is_game_relevant(self, game, past=False):
-        return self.is_team_in_range(game.home, past) or self.is_team_in_range(game.away, past)
+    def _is_game_relevant(self, game, past=False):
+        return self._is_team_in_range(game.home, past) or self._is_team_in_range(game.away, past)
 
     def _compute_matchups(self, games, past=False):
         my_matchup = False
         matchups = []
 
         for game in games:
-            if not self.is_game_relevant(game, past):
+            if not self._is_game_relevant(game, past):
                 continue
             m = self._matchup_from_game(game, past)
 
@@ -94,7 +95,7 @@ class Analysis:
     def _matchup_from_game(self, game, past=False):
         m = Matchup(game)
 
-        m.both_in_range = self.is_team_in_range(game.away) and self.is_team_in_range(game.home)
+        m.both_in_range = self._is_team_in_range(game.away) and self._is_team_in_range(game.home)
         m.my_team_involved = game.away == self.my_team or game.home == self.my_team
 
         if game.home == self.my_team:
