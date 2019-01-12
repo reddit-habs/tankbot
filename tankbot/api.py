@@ -38,11 +38,13 @@ class Standing:
     row = attrib()
     last10 = attrib()
     projection = attrib(init=False)
+    point_percent = attrib(init=False)
     odds = attrib(init=False)
 
     def __attrs_post_init__(self):
         self.record = _format_record(self.wins, self.losses, self.ot)
         self.projection = round((self.points / self.gamesPlayed) * 82)
+        self.point_percent = f("{self.points / (self.gamesPlayed * 2):0.3f}")
 
 
 @attrs(slots=True)

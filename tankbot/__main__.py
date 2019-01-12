@@ -4,10 +4,11 @@ import sys
 
 import arrow
 import praw
-
-from .analysis.tank import Analysis
-from .api import Info
-from .generate.tank import generate
+import tankbot.analysis.playoffs
+import tankbot.analysis.tank
+import tankbot.generate.playoffs
+import tankbot.generate.tank
+from tankbot.api import Info
 
 
 def date(s):
@@ -15,6 +16,18 @@ def date(s):
         return arrow.get(s, "YYYY-MM-DD")
     except arrow.parser.ParserError:
         raise ValueError("invalid date")
+
+
+def write_or_post(test, reddit, my_team, title, text):
+    if test:
+        with open("{}.md".format(my_team.code), "w") as f:
+            f.write(text)
+    else:
+        try:
+            sub = reddit.subreddit(my_team.subreddit)
+            sub.submit(title, selftext=text, send_replies=False)
+        except Exception as e:
+            print("Error sending", e, file=sys.stderr)
 
 
 if __name__ == "__main__":
@@ -28,6 +41,8 @@ if __name__ == "__main__":
 
         info = Info(args.date)
 
+        reddit = None
+
         if not test:
             reddit = praw.Reddit(
                 client_id=config["client_id"],
@@ -37,19 +52,15 @@ if __name__ == "__main__":
                 user_agent=config["user_agent"],
             )
 
-        for team in config["teams"]:
+        for team in config["playoffs"]:
             my_team = info.get_team_by_code(team)
-            analysis = Analysis(info, my_team)
-
-            text = generate(analysis)
-
-            if test:
-                with open("{}.md".format(my_team.code), "w") as f:
-                    f.write(text)
-            else:
-                try:
-                    sub = reddit.subreddit(my_team.subreddit)
-                    title = "Scouting the Tank: {}".format(info.date.format("MMMM Do, YYYY"))
-                    sub.submit(title, selftext=text, send_replies=False)
-                except Exception as e:
-                    print("Error sending", e, file=sys.stderr)
+            a = tankbot.analysis.playoffs.Analysis(info, my_team)
+            text = tankbot.generate.playoffs.generate(a)
+            title = "Playoffs Race: {}".format(info.date.format("MMMM Do, YYYY"))
+            write_or_post(test, reddit, my_team, title, text)
+        for team in config["tank"]:
+            my_team = info.get_team_by_code(team)
+            a = tankbot.analysis.tank.Analysis(info, my_team)
+            text = tankbot.generate.tank.generate(a)
+            title = "Scouting the Tank: {}".format(info.date.format("MMMM Do, YYYY"))
+            write_or_post(test, reddit, my_team, title, text)
