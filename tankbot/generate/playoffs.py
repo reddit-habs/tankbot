@@ -56,7 +56,7 @@ def make_wildcard_table(standings: typing.List[Standing]):
     t.add_columns("Place", "Team", "GP", "Record", "Points", "ROW", "L10", "P%", "P-82")
     for i, s in enumerate(standings):
         if i == 2:
-            t.add_row("-", "-", "-", "-", "-", "-", "-", "-")
+            t.add_row("-", "-", "-", "-", "-", "-", "-", "-", "-")
         t.add_row(
             s.place, fmt_team(s.team), s.gamesPlayed, s.record, s.points, s.row, s.last10, s.point_percent, s.projection
         )

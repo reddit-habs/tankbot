@@ -4,11 +4,12 @@ import sys
 
 import arrow
 import praw
+
 import tankbot.analysis.playoffs
 import tankbot.analysis.tank
 import tankbot.generate.playoffs
 import tankbot.generate.tank
-from tankbot.api import Info
+from tankbot.api import fetch_info
 
 
 def date(s):
@@ -39,7 +40,9 @@ if __name__ == "__main__":
         config = json.load(f)
         test = config.get("test", False)
 
-        info = Info(args.date)
+        info = fetch_info(args.date)
+        # from tankbot import serde
+        # serde.dumpf("info.json", info, indent=4)
 
         reddit = None
 

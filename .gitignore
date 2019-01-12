@@ -104,3 +104,4 @@ ENV/
 *.txt
 *.md
 !README.md
+!tests/*.json

@@ -1,0 +1,2166 @@
+{
+    "teams": [
+        {
+            "id": 24,
+            "code": "ANA",
+            "fullname": "Anaheim Ducks",
+            "name": "Ducks",
+            "location": "Anaheim",
+            "division": "Pacific",
+            "conference": "Western",
+            "subreddit": "anaheimducks",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 53,
+            "code": "ARI",
+            "fullname": "Arizona Coyotes",
+            "name": "Coyotes",
+            "location": "Arizona",
+            "division": "Pacific",
+            "conference": "Western",
+            "subreddit": "coyotes",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 6,
+            "code": "BOS",
+            "fullname": "Boston Bruins",
+            "name": "Bruins",
+            "location": "Boston",
+            "division": "Atlantic",
+            "conference": "Eastern",
+            "subreddit": "bostonbruins",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 7,
+            "code": "BUF",
+            "fullname": "Buffalo Sabres",
+            "name": "Sabres",
+            "location": "Buffalo",
+            "division": "Atlantic",
+            "conference": "Eastern",
+            "subreddit": "sabres",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 20,
+            "code": "CGY",
+            "fullname": "Calgary Flames",
+            "name": "Flames",
+            "location": "Calgary",
+            "division": "Pacific",
+            "conference": "Western",
+            "subreddit": "calgaryflames",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 12,
+            "code": "CAR",
+            "fullname": "Carolina Hurricanes",
+            "name": "Hurricanes",
+            "location": "Carolina",
+            "division": "Metropolitan",
+            "conference": "Eastern",
+            "subreddit": "canes",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 16,
+            "code": "CHI",
+            "fullname": "Chicago Blackhawks",
+            "name": "Blackhawks",
+            "location": "Chicago",
+            "division": "Central",
+            "conference": "Western",
+            "subreddit": "hawks",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 21,
+            "code": "COL",
+            "fullname": "Colorado Avalanche",
+            "name": "Avalanche",
+            "location": "Colorado",
+            "division": "Central",
+            "conference": "Western",
+            "subreddit": "coloradoavalanche",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 29,
+            "code": "CBJ",
+            "fullname": "Columbus Blue Jackets",
+            "name": "Blue Jackets",
+            "location": "Columbus",
+            "division": "Metropolitan",
+            "conference": "Eastern",
+            "subreddit": "bluejackets",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 25,
+            "code": "DAL",
+            "fullname": "Dallas Stars",
+            "name": "Stars",
+            "location": "Dallas",
+            "division": "Central",
+            "conference": "Western",
+            "subreddit": "dallasstars",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 17,
+            "code": "DET",
+            "fullname": "Detroit Red Wings",
+            "name": "Red Wings",
+            "location": "Detroit",
+            "division": "Atlantic",
+            "conference": "Eastern",
+            "subreddit": "detroitredwings",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 22,
+            "code": "EDM",
+            "fullname": "Edmonton Oilers",
+            "name": "Oilers",
+            "location": "Edmonton",
+            "division": "Pacific",
+            "conference": "Western",
+            "subreddit": "edmontonoilers",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 13,
+            "code": "FLA",
+            "fullname": "Florida Panthers",
+            "name": "Panthers",
+            "location": "Florida",
+            "division": "Atlantic",
+            "conference": "Eastern",
+            "subreddit": "floridapanthers",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 26,
+            "code": "LAK",
+            "fullname": "Los Angeles Kings",
+            "name": "Kings",
+            "location": "Los Angeles",
+            "division": "Pacific",
+            "conference": "Western",
+            "subreddit": "losangeleskings",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 30,
+            "code": "MIN",
+            "fullname": "Minnesota Wild",
+            "name": "Wild",
+            "location": "Minnesota",
+            "division": "Central",
+            "conference": "Western",
+            "subreddit": "wildhockey",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 8,
+            "code": "MTL",
+            "fullname": "Montr\u00e9al Canadiens",
+            "name": "Canadiens",
+            "location": "Montr\u00e9al",
+            "division": "Atlantic",
+            "conference": "Eastern",
+            "subreddit": "habs",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 18,
+            "code": "NSH",
+            "fullname": "Nashville Predators",
+            "name": "Predators",
+            "location": "Nashville",
+            "division": "Central",
+            "conference": "Western",
+            "subreddit": "predators",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 1,
+            "code": "NJD",
+            "fullname": "New Jersey Devils",
+            "name": "Devils",
+            "location": "New Jersey",
+            "division": "Metropolitan",
+            "conference": "Eastern",
+            "subreddit": "devils",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 2,
+            "code": "NYI",
+            "fullname": "New York Islanders",
+            "name": "Islanders",
+            "location": "New York",
+            "division": "Metropolitan",
+            "conference": "Eastern",
+            "subreddit": "newyorkislanders",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 3,
+            "code": "NYR",
+            "fullname": "New York Rangers",
+            "name": "Rangers",
+            "location": "New York",
+            "division": "Metropolitan",
+            "conference": "Eastern",
+            "subreddit": "rangers",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 9,
+            "code": "OTT",
+            "fullname": "Ottawa Senators",
+            "name": "Senators",
+            "location": "Ottawa",
+            "division": "Atlantic",
+            "conference": "Eastern",
+            "subreddit": "ottawasenators",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 4,
+            "code": "PHI",
+            "fullname": "Philadelphia Flyers",
+            "name": "Flyers",
+            "location": "Philadelphia",
+            "division": "Metropolitan",
+            "conference": "Eastern",
+            "subreddit": "flyers",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 5,
+            "code": "PIT",
+            "fullname": "Pittsburgh Penguins",
+            "name": "Penguins",
+            "location": "Pittsburgh",
+            "division": "Metropolitan",
+            "conference": "Eastern",
+            "subreddit": "penguins",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 28,
+            "code": "SJS",
+            "fullname": "San Jose Sharks",
+            "name": "Sharks",
+            "location": "San Jose",
+            "division": "Pacific",
+            "conference": "Western",
+            "subreddit": "sanjosesharks",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 19,
+            "code": "STL",
+            "fullname": "St. Louis Blues",
+            "name": "Blues",
+            "location": "St. Louis",
+            "division": "Central",
+            "conference": "Western",
+            "subreddit": "stlouisblues",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 14,
+            "code": "TBL",
+            "fullname": "Tampa Bay Lightning",
+            "name": "Lightning",
+            "location": "Tampa Bay",
+            "division": "Atlantic",
+            "conference": "Eastern",
+            "subreddit": "tampabaylightning",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 10,
+            "code": "TOR",
+            "fullname": "Toronto Maple Leafs",
+            "name": "Maple Leafs",
+            "location": "Toronto",
+            "division": "Atlantic",
+            "conference": "Eastern",
+            "subreddit": "leafs",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 23,
+            "code": "VAN",
+            "fullname": "Vancouver Canucks",
+            "name": "Canucks",
+            "location": "Vancouver",
+            "division": "Pacific",
+            "conference": "Western",
+            "subreddit": "canucks",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 54,
+            "code": "VGK",
+            "fullname": "Vegas Golden Knights",
+            "name": "Golden Knights",
+            "location": "Vegas",
+            "division": "Pacific",
+            "conference": "Western",
+            "subreddit": "goldenknights",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 15,
+            "code": "WSH",
+            "fullname": "Washington Capitals",
+            "name": "Capitals",
+            "location": "Washington",
+            "division": "Metropolitan",
+            "conference": "Eastern",
+            "subreddit": "caps",
+            "__class__": "tankbot.api.Team"
+        },
+        {
+            "id": 52,
+            "code": "WPG",
+            "fullname": "Winnipeg Jets",
+            "name": "Jets",
+            "location": "Winnipeg",
+            "division": "Central",
+            "conference": "Western",
+            "subreddit": "winnipegjets",
+            "__class__": "tankbot.api.Team"
+        }
+    ],
+    "date": {
+        "__special__": "Arrow",
+        "iso": "2019-01-10T00:00:00+00:00"
+    },
+    "standings": [
+        {
+            "team": {
+                "id": 14,
+                "code": "TBL",
+                "fullname": "Tampa Bay Lightning",
+                "name": "Lightning",
+                "location": "Tampa Bay",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "tampabaylightning",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 1,
+            "gamesPlayed": 44,
+            "points": 70,
+            "wins": 34,
+            "losses": 8,
+            "ot": 2,
+            "row": 31,
+            "last10": "9-1-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 20,
+                "code": "CGY",
+                "fullname": "Calgary Flames",
+                "name": "Flames",
+                "location": "Calgary",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "calgaryflames",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 2,
+            "gamesPlayed": 46,
+            "points": 62,
+            "wins": 29,
+            "losses": 13,
+            "ot": 4,
+            "row": 29,
+            "last10": "7-2-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 28,
+                "code": "SJS",
+                "fullname": "San Jose Sharks",
+                "name": "Sharks",
+                "location": "San Jose",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "sanjosesharks",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 3,
+            "gamesPlayed": 46,
+            "points": 59,
+            "wins": 26,
+            "losses": 13,
+            "ot": 7,
+            "row": 26,
+            "last10": "7-1-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 10,
+                "code": "TOR",
+                "fullname": "Toronto Maple Leafs",
+                "name": "Maple Leafs",
+                "location": "Toronto",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "leafs",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 4,
+            "gamesPlayed": 43,
+            "points": 58,
+            "wins": 28,
+            "losses": 13,
+            "ot": 2,
+            "row": 28,
+            "last10": "7-3-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 15,
+                "code": "WSH",
+                "fullname": "Washington Capitals",
+                "name": "Capitals",
+                "location": "Washington",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "caps",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 5,
+            "gamesPlayed": 43,
+            "points": 58,
+            "wins": 27,
+            "losses": 12,
+            "ot": 4,
+            "row": 24,
+            "last10": "7-2-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 52,
+                "code": "WPG",
+                "fullname": "Winnipeg Jets",
+                "name": "Jets",
+                "location": "Winnipeg",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "winnipegjets",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 6,
+            "gamesPlayed": 44,
+            "points": 58,
+            "wins": 28,
+            "losses": 14,
+            "ot": 2,
+            "row": 27,
+            "last10": "6-4-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 18,
+                "code": "NSH",
+                "fullname": "Nashville Predators",
+                "name": "Predators",
+                "location": "Nashville",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "predators",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 7,
+            "gamesPlayed": 46,
+            "points": 58,
+            "wins": 27,
+            "losses": 15,
+            "ot": 4,
+            "row": 26,
+            "last10": "5-3-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 54,
+                "code": "VGK",
+                "fullname": "Vegas Golden Knights",
+                "name": "Golden Knights",
+                "location": "Vegas",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "goldenknights",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 8,
+            "gamesPlayed": 47,
+            "points": 58,
+            "wins": 27,
+            "losses": 16,
+            "ot": 4,
+            "row": 26,
+            "last10": "7-1-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 5,
+                "code": "PIT",
+                "fullname": "Pittsburgh Penguins",
+                "name": "Penguins",
+                "location": "Pittsburgh",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "penguins",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 9,
+            "gamesPlayed": 44,
+            "points": 56,
+            "wins": 25,
+            "losses": 13,
+            "ot": 6,
+            "row": 24,
+            "last10": "9-1-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 6,
+                "code": "BOS",
+                "fullname": "Boston Bruins",
+                "name": "Bruins",
+                "location": "Boston",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "bostonbruins",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 10,
+            "gamesPlayed": 44,
+            "points": 54,
+            "wins": 25,
+            "losses": 15,
+            "ot": 4,
+            "row": 24,
+            "last10": "7-3-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 29,
+                "code": "CBJ",
+                "fullname": "Columbus Blue Jackets",
+                "name": "Blue Jackets",
+                "location": "Columbus",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "bluejackets",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 11,
+            "gamesPlayed": 43,
+            "points": 53,
+            "wins": 25,
+            "losses": 15,
+            "ot": 3,
+            "row": 25,
+            "last10": "7-3-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 2,
+                "code": "NYI",
+                "fullname": "New York Islanders",
+                "name": "Islanders",
+                "location": "New York",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "newyorkislanders",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 12,
+            "gamesPlayed": 43,
+            "points": 52,
+            "wins": 24,
+            "losses": 15,
+            "ot": 4,
+            "row": 22,
+            "last10": "7-3-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 7,
+                "code": "BUF",
+                "fullname": "Buffalo Sabres",
+                "name": "Sabres",
+                "location": "Buffalo",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "sabres",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 13,
+            "gamesPlayed": 44,
+            "points": 52,
+            "wins": 23,
+            "losses": 15,
+            "ot": 6,
+            "row": 20,
+            "last10": "3-6-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 8,
+                "code": "MTL",
+                "fullname": "Montr\u00e9al Canadiens",
+                "name": "Canadiens",
+                "location": "Montr\u00e9al",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "habs",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 14,
+            "gamesPlayed": 45,
+            "points": 51,
+            "wins": 23,
+            "losses": 17,
+            "ot": 5,
+            "row": 21,
+            "last10": "6-4-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 25,
+                "code": "DAL",
+                "fullname": "Dallas Stars",
+                "name": "Stars",
+                "location": "Dallas",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "dallasstars",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 15,
+            "gamesPlayed": 45,
+            "points": 50,
+            "wins": 23,
+            "losses": 18,
+            "ot": 4,
+            "row": 23,
+            "last10": "6-3-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 21,
+                "code": "COL",
+                "fullname": "Colorado Avalanche",
+                "name": "Avalanche",
+                "location": "Colorado",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "coloradoavalanche",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 16,
+            "gamesPlayed": 44,
+            "points": 48,
+            "wins": 20,
+            "losses": 16,
+            "ot": 8,
+            "row": 20,
+            "last10": "2-6-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 30,
+                "code": "MIN",
+                "fullname": "Minnesota Wild",
+                "name": "Wild",
+                "location": "Minnesota",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "wildhockey",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 17,
+            "gamesPlayed": 43,
+            "points": 47,
+            "wins": 22,
+            "losses": 18,
+            "ot": 3,
+            "row": 22,
+            "last10": "5-4-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 12,
+                "code": "CAR",
+                "fullname": "Carolina Hurricanes",
+                "name": "Hurricanes",
+                "location": "Carolina",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "canes",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 18,
+            "gamesPlayed": 44,
+            "points": 47,
+            "wins": 21,
+            "losses": 18,
+            "ot": 5,
+            "row": 20,
+            "last10": "7-3-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 24,
+                "code": "ANA",
+                "fullname": "Anaheim Ducks",
+                "name": "Ducks",
+                "location": "Anaheim",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "anaheimducks",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 19,
+            "gamesPlayed": 45,
+            "points": 46,
+            "wins": 19,
+            "losses": 18,
+            "ot": 8,
+            "row": 16,
+            "last10": "0-7-3",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 22,
+                "code": "EDM",
+                "fullname": "Edmonton Oilers",
+                "name": "Oilers",
+                "location": "Edmonton",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "edmontonoilers",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 20,
+            "gamesPlayed": 44,
+            "points": 45,
+            "wins": 21,
+            "losses": 20,
+            "ot": 3,
+            "row": 19,
+            "last10": "3-7-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 23,
+                "code": "VAN",
+                "fullname": "Vancouver Canucks",
+                "name": "Canucks",
+                "location": "Vancouver",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "canucks",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 21,
+            "gamesPlayed": 46,
+            "points": 45,
+            "wins": 20,
+            "losses": 21,
+            "ot": 5,
+            "row": 19,
+            "last10": "4-5-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 3,
+                "code": "NYR",
+                "fullname": "New York Rangers",
+                "name": "Rangers",
+                "location": "New York",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "rangers",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 22,
+            "gamesPlayed": 44,
+            "points": 43,
+            "wins": 18,
+            "losses": 19,
+            "ot": 7,
+            "row": 13,
+            "last10": "3-5-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 13,
+                "code": "FLA",
+                "fullname": "Florida Panthers",
+                "name": "Panthers",
+                "location": "Florida",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "floridapanthers",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 23,
+            "gamesPlayed": 43,
+            "points": 42,
+            "wins": 17,
+            "losses": 18,
+            "ot": 8,
+            "row": 15,
+            "last10": "4-4-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 53,
+                "code": "ARI",
+                "fullname": "Arizona Coyotes",
+                "name": "Coyotes",
+                "location": "Arizona",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "coyotes",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 24,
+            "gamesPlayed": 43,
+            "points": 41,
+            "wins": 19,
+            "losses": 21,
+            "ot": 3,
+            "row": 17,
+            "last10": "5-4-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 1,
+                "code": "NJD",
+                "fullname": "New Jersey Devils",
+                "name": "Devils",
+                "location": "New Jersey",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "devils",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 25,
+            "gamesPlayed": 44,
+            "points": 41,
+            "wins": 17,
+            "losses": 20,
+            "ot": 7,
+            "row": 16,
+            "last10": "5-5-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 19,
+                "code": "STL",
+                "fullname": "St. Louis Blues",
+                "name": "Blues",
+                "location": "St. Louis",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "stlouisblues",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 26,
+            "gamesPlayed": 42,
+            "points": 40,
+            "wins": 18,
+            "losses": 20,
+            "ot": 4,
+            "row": 18,
+            "last10": "5-5-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 16,
+                "code": "CHI",
+                "fullname": "Chicago Blackhawks",
+                "name": "Blackhawks",
+                "location": "Chicago",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "hawks",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 27,
+            "gamesPlayed": 46,
+            "points": 40,
+            "wins": 16,
+            "losses": 22,
+            "ot": 8,
+            "row": 16,
+            "last10": "5-3-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 9,
+                "code": "OTT",
+                "fullname": "Ottawa Senators",
+                "name": "Senators",
+                "location": "Ottawa",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "ottawasenators",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 28,
+            "gamesPlayed": 45,
+            "points": 39,
+            "wins": 17,
+            "losses": 23,
+            "ot": 5,
+            "row": 17,
+            "last10": "2-7-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 17,
+                "code": "DET",
+                "fullname": "Detroit Red Wings",
+                "name": "Red Wings",
+                "location": "Detroit",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "detroitredwings",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 29,
+            "gamesPlayed": 46,
+            "points": 39,
+            "wins": 16,
+            "losses": 23,
+            "ot": 7,
+            "row": 14,
+            "last10": "1-7-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 4,
+                "code": "PHI",
+                "fullname": "Philadelphia Flyers",
+                "name": "Flyers",
+                "location": "Philadelphia",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "flyers",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 30,
+            "gamesPlayed": 45,
+            "points": 38,
+            "wins": 16,
+            "losses": 23,
+            "ot": 6,
+            "row": 14,
+            "last10": "1-7-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 26,
+                "code": "LAK",
+                "fullname": "Los Angeles Kings",
+                "name": "Kings",
+                "location": "Los Angeles",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "losangeleskings",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 31,
+            "gamesPlayed": 45,
+            "points": 37,
+            "wins": 17,
+            "losses": 25,
+            "ot": 3,
+            "row": 16,
+            "last10": "5-5-0",
+            "__class__": "tankbot.api.Standing"
+        }
+    ],
+    "past_standings": [
+        {
+            "team": {
+                "id": 14,
+                "code": "TBL",
+                "fullname": "Tampa Bay Lightning",
+                "name": "Lightning",
+                "location": "Tampa Bay",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "tampabaylightning",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 1,
+            "gamesPlayed": 44,
+            "points": 70,
+            "wins": 34,
+            "losses": 8,
+            "ot": 2,
+            "row": 31,
+            "last10": "9-1-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 20,
+                "code": "CGY",
+                "fullname": "Calgary Flames",
+                "name": "Flames",
+                "location": "Calgary",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "calgaryflames",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 2,
+            "gamesPlayed": 46,
+            "points": 62,
+            "wins": 29,
+            "losses": 13,
+            "ot": 4,
+            "row": 29,
+            "last10": "7-2-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 28,
+                "code": "SJS",
+                "fullname": "San Jose Sharks",
+                "name": "Sharks",
+                "location": "San Jose",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "sanjosesharks",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 3,
+            "gamesPlayed": 46,
+            "points": 59,
+            "wins": 26,
+            "losses": 13,
+            "ot": 7,
+            "row": 26,
+            "last10": "7-1-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 10,
+                "code": "TOR",
+                "fullname": "Toronto Maple Leafs",
+                "name": "Maple Leafs",
+                "location": "Toronto",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "leafs",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 4,
+            "gamesPlayed": 43,
+            "points": 58,
+            "wins": 28,
+            "losses": 13,
+            "ot": 2,
+            "row": 28,
+            "last10": "7-3-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 15,
+                "code": "WSH",
+                "fullname": "Washington Capitals",
+                "name": "Capitals",
+                "location": "Washington",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "caps",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 5,
+            "gamesPlayed": 43,
+            "points": 58,
+            "wins": 27,
+            "losses": 12,
+            "ot": 4,
+            "row": 24,
+            "last10": "7-2-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 52,
+                "code": "WPG",
+                "fullname": "Winnipeg Jets",
+                "name": "Jets",
+                "location": "Winnipeg",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "winnipegjets",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 6,
+            "gamesPlayed": 44,
+            "points": 58,
+            "wins": 28,
+            "losses": 14,
+            "ot": 2,
+            "row": 27,
+            "last10": "6-4-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 18,
+                "code": "NSH",
+                "fullname": "Nashville Predators",
+                "name": "Predators",
+                "location": "Nashville",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "predators",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 7,
+            "gamesPlayed": 46,
+            "points": 58,
+            "wins": 27,
+            "losses": 15,
+            "ot": 4,
+            "row": 26,
+            "last10": "5-3-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 54,
+                "code": "VGK",
+                "fullname": "Vegas Golden Knights",
+                "name": "Golden Knights",
+                "location": "Vegas",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "goldenknights",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 8,
+            "gamesPlayed": 47,
+            "points": 58,
+            "wins": 27,
+            "losses": 16,
+            "ot": 4,
+            "row": 26,
+            "last10": "7-1-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 5,
+                "code": "PIT",
+                "fullname": "Pittsburgh Penguins",
+                "name": "Penguins",
+                "location": "Pittsburgh",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "penguins",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 9,
+            "gamesPlayed": 44,
+            "points": 56,
+            "wins": 25,
+            "losses": 13,
+            "ot": 6,
+            "row": 24,
+            "last10": "9-1-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 6,
+                "code": "BOS",
+                "fullname": "Boston Bruins",
+                "name": "Bruins",
+                "location": "Boston",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "bostonbruins",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 10,
+            "gamesPlayed": 44,
+            "points": 54,
+            "wins": 25,
+            "losses": 15,
+            "ot": 4,
+            "row": 24,
+            "last10": "7-3-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 29,
+                "code": "CBJ",
+                "fullname": "Columbus Blue Jackets",
+                "name": "Blue Jackets",
+                "location": "Columbus",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "bluejackets",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 11,
+            "gamesPlayed": 43,
+            "points": 53,
+            "wins": 25,
+            "losses": 15,
+            "ot": 3,
+            "row": 25,
+            "last10": "7-3-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 2,
+                "code": "NYI",
+                "fullname": "New York Islanders",
+                "name": "Islanders",
+                "location": "New York",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "newyorkislanders",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 12,
+            "gamesPlayed": 43,
+            "points": 52,
+            "wins": 24,
+            "losses": 15,
+            "ot": 4,
+            "row": 22,
+            "last10": "7-3-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 7,
+                "code": "BUF",
+                "fullname": "Buffalo Sabres",
+                "name": "Sabres",
+                "location": "Buffalo",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "sabres",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 13,
+            "gamesPlayed": 44,
+            "points": 52,
+            "wins": 23,
+            "losses": 15,
+            "ot": 6,
+            "row": 20,
+            "last10": "3-6-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 8,
+                "code": "MTL",
+                "fullname": "Montr\u00e9al Canadiens",
+                "name": "Canadiens",
+                "location": "Montr\u00e9al",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "habs",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 14,
+            "gamesPlayed": 45,
+            "points": 51,
+            "wins": 23,
+            "losses": 17,
+            "ot": 5,
+            "row": 21,
+            "last10": "6-4-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 25,
+                "code": "DAL",
+                "fullname": "Dallas Stars",
+                "name": "Stars",
+                "location": "Dallas",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "dallasstars",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 15,
+            "gamesPlayed": 45,
+            "points": 50,
+            "wins": 23,
+            "losses": 18,
+            "ot": 4,
+            "row": 23,
+            "last10": "6-3-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 21,
+                "code": "COL",
+                "fullname": "Colorado Avalanche",
+                "name": "Avalanche",
+                "location": "Colorado",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "coloradoavalanche",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 16,
+            "gamesPlayed": 44,
+            "points": 48,
+            "wins": 20,
+            "losses": 16,
+            "ot": 8,
+            "row": 20,
+            "last10": "2-6-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 30,
+                "code": "MIN",
+                "fullname": "Minnesota Wild",
+                "name": "Wild",
+                "location": "Minnesota",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "wildhockey",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 17,
+            "gamesPlayed": 43,
+            "points": 47,
+            "wins": 22,
+            "losses": 18,
+            "ot": 3,
+            "row": 22,
+            "last10": "5-4-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 12,
+                "code": "CAR",
+                "fullname": "Carolina Hurricanes",
+                "name": "Hurricanes",
+                "location": "Carolina",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "canes",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 18,
+            "gamesPlayed": 44,
+            "points": 47,
+            "wins": 21,
+            "losses": 18,
+            "ot": 5,
+            "row": 20,
+            "last10": "7-3-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 24,
+                "code": "ANA",
+                "fullname": "Anaheim Ducks",
+                "name": "Ducks",
+                "location": "Anaheim",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "anaheimducks",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 19,
+            "gamesPlayed": 45,
+            "points": 46,
+            "wins": 19,
+            "losses": 18,
+            "ot": 8,
+            "row": 16,
+            "last10": "0-7-3",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 22,
+                "code": "EDM",
+                "fullname": "Edmonton Oilers",
+                "name": "Oilers",
+                "location": "Edmonton",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "edmontonoilers",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 20,
+            "gamesPlayed": 44,
+            "points": 45,
+            "wins": 21,
+            "losses": 20,
+            "ot": 3,
+            "row": 19,
+            "last10": "3-7-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 23,
+                "code": "VAN",
+                "fullname": "Vancouver Canucks",
+                "name": "Canucks",
+                "location": "Vancouver",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "canucks",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 21,
+            "gamesPlayed": 46,
+            "points": 45,
+            "wins": 20,
+            "losses": 21,
+            "ot": 5,
+            "row": 19,
+            "last10": "4-5-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 3,
+                "code": "NYR",
+                "fullname": "New York Rangers",
+                "name": "Rangers",
+                "location": "New York",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "rangers",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 22,
+            "gamesPlayed": 44,
+            "points": 43,
+            "wins": 18,
+            "losses": 19,
+            "ot": 7,
+            "row": 13,
+            "last10": "3-5-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 13,
+                "code": "FLA",
+                "fullname": "Florida Panthers",
+                "name": "Panthers",
+                "location": "Florida",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "floridapanthers",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 23,
+            "gamesPlayed": 43,
+            "points": 42,
+            "wins": 17,
+            "losses": 18,
+            "ot": 8,
+            "row": 15,
+            "last10": "4-4-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 53,
+                "code": "ARI",
+                "fullname": "Arizona Coyotes",
+                "name": "Coyotes",
+                "location": "Arizona",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "coyotes",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 24,
+            "gamesPlayed": 43,
+            "points": 41,
+            "wins": 19,
+            "losses": 21,
+            "ot": 3,
+            "row": 17,
+            "last10": "5-4-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 1,
+                "code": "NJD",
+                "fullname": "New Jersey Devils",
+                "name": "Devils",
+                "location": "New Jersey",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "devils",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 25,
+            "gamesPlayed": 44,
+            "points": 41,
+            "wins": 17,
+            "losses": 20,
+            "ot": 7,
+            "row": 16,
+            "last10": "5-5-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 19,
+                "code": "STL",
+                "fullname": "St. Louis Blues",
+                "name": "Blues",
+                "location": "St. Louis",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "stlouisblues",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 26,
+            "gamesPlayed": 42,
+            "points": 40,
+            "wins": 18,
+            "losses": 20,
+            "ot": 4,
+            "row": 18,
+            "last10": "5-5-0",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 16,
+                "code": "CHI",
+                "fullname": "Chicago Blackhawks",
+                "name": "Blackhawks",
+                "location": "Chicago",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "hawks",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 27,
+            "gamesPlayed": 46,
+            "points": 40,
+            "wins": 16,
+            "losses": 22,
+            "ot": 8,
+            "row": 16,
+            "last10": "5-3-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 9,
+                "code": "OTT",
+                "fullname": "Ottawa Senators",
+                "name": "Senators",
+                "location": "Ottawa",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "ottawasenators",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 28,
+            "gamesPlayed": 45,
+            "points": 39,
+            "wins": 17,
+            "losses": 23,
+            "ot": 5,
+            "row": 17,
+            "last10": "2-7-1",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 17,
+                "code": "DET",
+                "fullname": "Detroit Red Wings",
+                "name": "Red Wings",
+                "location": "Detroit",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "detroitredwings",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 29,
+            "gamesPlayed": 46,
+            "points": 39,
+            "wins": 16,
+            "losses": 23,
+            "ot": 7,
+            "row": 14,
+            "last10": "1-7-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 4,
+                "code": "PHI",
+                "fullname": "Philadelphia Flyers",
+                "name": "Flyers",
+                "location": "Philadelphia",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "flyers",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 30,
+            "gamesPlayed": 45,
+            "points": 38,
+            "wins": 16,
+            "losses": 23,
+            "ot": 6,
+            "row": 14,
+            "last10": "1-7-2",
+            "__class__": "tankbot.api.Standing"
+        },
+        {
+            "team": {
+                "id": 26,
+                "code": "LAK",
+                "fullname": "Los Angeles Kings",
+                "name": "Kings",
+                "location": "Los Angeles",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "losangeleskings",
+                "__class__": "tankbot.api.Team"
+            },
+            "place": 31,
+            "gamesPlayed": 45,
+            "points": 37,
+            "wins": 17,
+            "losses": 25,
+            "ot": 3,
+            "row": 16,
+            "last10": "5-5-0",
+            "__class__": "tankbot.api.Standing"
+        }
+    ],
+    "games": [
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-10T19:00:00-05:00"
+            },
+            "home": {
+                "id": 6,
+                "code": "BOS",
+                "fullname": "Boston Bruins",
+                "name": "Bruins",
+                "location": "Boston",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "bostonbruins",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 15,
+                "code": "WSH",
+                "fullname": "Washington Capitals",
+                "name": "Capitals",
+                "location": "Washington",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "caps",
+                "__class__": "tankbot.api.Team"
+            },
+            "__class__": "tankbot.api.Game"
+        },
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-10T19:00:00-05:00"
+            },
+            "home": {
+                "id": 1,
+                "code": "NJD",
+                "fullname": "New Jersey Devils",
+                "name": "Devils",
+                "location": "New Jersey",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "devils",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 10,
+                "code": "TOR",
+                "fullname": "Toronto Maple Leafs",
+                "name": "Maple Leafs",
+                "location": "Toronto",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "leafs",
+                "__class__": "tankbot.api.Team"
+            },
+            "__class__": "tankbot.api.Game"
+        },
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-10T19:00:00-05:00"
+            },
+            "home": {
+                "id": 3,
+                "code": "NYR",
+                "fullname": "New York Rangers",
+                "name": "Rangers",
+                "location": "New York",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "rangers",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 2,
+                "code": "NYI",
+                "fullname": "New York Islanders",
+                "name": "Islanders",
+                "location": "New York",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "newyorkislanders",
+                "__class__": "tankbot.api.Team"
+            },
+            "__class__": "tankbot.api.Game"
+        },
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-10T19:00:00-05:00"
+            },
+            "home": {
+                "id": 4,
+                "code": "PHI",
+                "fullname": "Philadelphia Flyers",
+                "name": "Flyers",
+                "location": "Philadelphia",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "flyers",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 25,
+                "code": "DAL",
+                "fullname": "Dallas Stars",
+                "name": "Stars",
+                "location": "Dallas",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "dallasstars",
+                "__class__": "tankbot.api.Team"
+            },
+            "__class__": "tankbot.api.Game"
+        },
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-10T19:00:00-05:00"
+            },
+            "home": {
+                "id": 29,
+                "code": "CBJ",
+                "fullname": "Columbus Blue Jackets",
+                "name": "Blue Jackets",
+                "location": "Columbus",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "bluejackets",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 18,
+                "code": "NSH",
+                "fullname": "Nashville Predators",
+                "name": "Predators",
+                "location": "Nashville",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "predators",
+                "__class__": "tankbot.api.Team"
+            },
+            "__class__": "tankbot.api.Game"
+        },
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-10T19:30:00-05:00"
+            },
+            "home": {
+                "id": 14,
+                "code": "TBL",
+                "fullname": "Tampa Bay Lightning",
+                "name": "Lightning",
+                "location": "Tampa Bay",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "tampabaylightning",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 12,
+                "code": "CAR",
+                "fullname": "Carolina Hurricanes",
+                "name": "Hurricanes",
+                "location": "Carolina",
+                "division": "Metropolitan",
+                "conference": "Eastern",
+                "subreddit": "canes",
+                "__class__": "tankbot.api.Team"
+            },
+            "__class__": "tankbot.api.Game"
+        },
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-10T20:00:00-05:00"
+            },
+            "home": {
+                "id": 19,
+                "code": "STL",
+                "fullname": "St. Louis Blues",
+                "name": "Blues",
+                "location": "St. Louis",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "stlouisblues",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 8,
+                "code": "MTL",
+                "fullname": "Montr\u00e9al Canadiens",
+                "name": "Canadiens",
+                "location": "Montr\u00e9al",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "habs",
+                "__class__": "tankbot.api.Team"
+            },
+            "__class__": "tankbot.api.Game"
+        },
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-10T20:00:00-05:00"
+            },
+            "home": {
+                "id": 30,
+                "code": "MIN",
+                "fullname": "Minnesota Wild",
+                "name": "Wild",
+                "location": "Minnesota",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "wildhockey",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 52,
+                "code": "WPG",
+                "fullname": "Winnipeg Jets",
+                "name": "Jets",
+                "location": "Winnipeg",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "winnipegjets",
+                "__class__": "tankbot.api.Team"
+            },
+            "__class__": "tankbot.api.Game"
+        },
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-10T21:00:00-05:00"
+            },
+            "home": {
+                "id": 22,
+                "code": "EDM",
+                "fullname": "Edmonton Oilers",
+                "name": "Oilers",
+                "location": "Edmonton",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "edmontonoilers",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 13,
+                "code": "FLA",
+                "fullname": "Florida Panthers",
+                "name": "Panthers",
+                "location": "Florida",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "floridapanthers",
+                "__class__": "tankbot.api.Team"
+            },
+            "__class__": "tankbot.api.Game"
+        },
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-10T22:00:00-05:00"
+            },
+            "home": {
+                "id": 23,
+                "code": "VAN",
+                "fullname": "Vancouver Canucks",
+                "name": "Canucks",
+                "location": "Vancouver",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "canucks",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 53,
+                "code": "ARI",
+                "fullname": "Arizona Coyotes",
+                "name": "Coyotes",
+                "location": "Arizona",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "coyotes",
+                "__class__": "tankbot.api.Team"
+            },
+            "__class__": "tankbot.api.Game"
+        },
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-10T22:00:00-05:00"
+            },
+            "home": {
+                "id": 54,
+                "code": "VGK",
+                "fullname": "Vegas Golden Knights",
+                "name": "Golden Knights",
+                "location": "Vegas",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "goldenknights",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 28,
+                "code": "SJS",
+                "fullname": "San Jose Sharks",
+                "name": "Sharks",
+                "location": "San Jose",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "sanjosesharks",
+                "__class__": "tankbot.api.Team"
+            },
+            "__class__": "tankbot.api.Game"
+        },
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-10T22:30:00-05:00"
+            },
+            "home": {
+                "id": 26,
+                "code": "LAK",
+                "fullname": "Los Angeles Kings",
+                "name": "Kings",
+                "location": "Los Angeles",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "losangeleskings",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 9,
+                "code": "OTT",
+                "fullname": "Ottawa Senators",
+                "name": "Senators",
+                "location": "Ottawa",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "ottawasenators",
+                "__class__": "tankbot.api.Team"
+            },
+            "__class__": "tankbot.api.Game"
+        }
+    ],
+    "results": [
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-09T20:00:00-05:00"
+            },
+            "home": {
+                "id": 16,
+                "code": "CHI",
+                "fullname": "Chicago Blackhawks",
+                "name": "Blackhawks",
+                "location": "Chicago",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "hawks",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 18,
+                "code": "NSH",
+                "fullname": "Nashville Predators",
+                "name": "Predators",
+                "location": "Nashville",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "predators",
+                "__class__": "tankbot.api.Team"
+            },
+            "home_score": 3,
+            "away_score": 4,
+            "overtime": true,
+            "__class__": "tankbot.api.Result"
+        },
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-09T21:30:00-05:00"
+            },
+            "home": {
+                "id": 20,
+                "code": "CGY",
+                "fullname": "Calgary Flames",
+                "name": "Flames",
+                "location": "Calgary",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "calgaryflames",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 21,
+                "code": "COL",
+                "fullname": "Colorado Avalanche",
+                "name": "Avalanche",
+                "location": "Colorado",
+                "division": "Central",
+                "conference": "Western",
+                "subreddit": "coloradoavalanche",
+                "__class__": "tankbot.api.Team"
+            },
+            "home_score": 5,
+            "away_score": 3,
+            "overtime": false,
+            "__class__": "tankbot.api.Result"
+        },
+        {
+            "time": {
+                "__special__": "Arrow",
+                "iso": "2019-01-09T22:00:00-05:00"
+            },
+            "home": {
+                "id": 24,
+                "code": "ANA",
+                "fullname": "Anaheim Ducks",
+                "name": "Ducks",
+                "location": "Anaheim",
+                "division": "Pacific",
+                "conference": "Western",
+                "subreddit": "anaheimducks",
+                "__class__": "tankbot.api.Team"
+            },
+            "away": {
+                "id": 9,
+                "code": "OTT",
+                "fullname": "Ottawa Senators",
+                "name": "Senators",
+                "location": "Ottawa",
+                "division": "Atlantic",
+                "conference": "Eastern",
+                "subreddit": "ottawasenators",
+                "__class__": "tankbot.api.Team"
+            },
+            "home_score": 1,
+            "away_score": 2,
+            "overtime": true,
+            "__class__": "tankbot.api.Result"
+        }
+    ],
+    "__class__": "tankbot.api.Info"
+}
