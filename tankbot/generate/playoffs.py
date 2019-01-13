@@ -121,4 +121,12 @@ def generate(a: Analysis):
     else:
         doc.add(Paragraph("Nothing out of town."))
 
+    doc.add(HorizontalRule())
+    doc.add(
+        Paragraph(
+            """/u/AutoYouppi is an umbrella account for multiple bots.
+They are FOSS and their source code is available [here](https://github.com/reddit-habs)."""
+        )
+    )
+
     return doc.render()
