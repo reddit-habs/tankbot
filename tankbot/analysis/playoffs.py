@@ -36,6 +36,12 @@ class Matchup(BaseMatchup):
             return Mood.GREAT
 
 
+@attrs(slots=True)
+class PlayoffsMatchup:
+    high_team = attrib()
+    low_team = attrib()
+
+
 class Analysis:
     def __init__(self, info, my_team, reach=10):
         self.info = info
@@ -50,6 +56,8 @@ class Analysis:
         self._conference_teams = set()
         self.my_team_top3 = False
 
+        place = 1
+
         for standing in self.info.standings:
             if standing.team.conference == self.my_team.conference:
                 self._conference_teams.add(standing.team)
@@ -58,17 +66,20 @@ class Analysis:
                     if len(self.own_division) < 3:
                         if standing.team == self.my_team:
                             self.my_team_top3 = True
-                        self.own_division.append(evolve(standing, place=len(self.own_division) + 1))
+                        self.own_division.append(evolve(standing, place=place, seed=len(self.own_division) + 1))
                     else:
-                        self.wildcard.append(evolve(standing, place=len(self.wildcard) + 1))
+                        self.wildcard.append(evolve(standing, place=place, seed=len(self.wildcard) + 1))
                 else:
                     if len(self.other_division) < 3:
-                        self.other_division.append(evolve(standing, place=len(self.other_division) + 1))
+                        self.other_division.append(evolve(standing, place=place, seed=len(self.other_division) + 1))
                     else:
-                        self.wildcard.append(evolve(standing, place=len(self.wildcard) + 1))
+                        self.wildcard.append(evolve(standing, place=place, seed=len(self.wildcard) + 1))
+                place += 1
 
         self.my_result, self.results = self._compute_matchups(self.info.results, past=True)
         self.my_game, self.games = self._compute_matchups(self.info.games)
+
+        self.playoffs_matchups = self._compute_playoffs_matchups()
 
     def _is_game_relevant(self, game, past=False):
         my_points = self.info.get_standing(self.my_team, past).points
@@ -138,3 +149,13 @@ class Analysis:
                 else:
                     raise ValueError("invalid state")
         return m
+
+    def _compute_playoffs_matchups(self):
+        tops = [self.own_division[0], self.other_division[0]]
+        tops.sort(key=lambda s: s.points, reverse=True)
+        return [
+            PlayoffsMatchup(high_team=tops[0], low_team=self.wildcard[1]),
+            PlayoffsMatchup(high_team=tops[1], low_team=self.wildcard[0]),
+            PlayoffsMatchup(high_team=self.own_division[1], low_team=self.own_division[2]),
+            PlayoffsMatchup(high_team=self.other_division[1], low_team=self.other_division[2]),
+        ]

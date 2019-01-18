@@ -1,6 +1,7 @@
+from attr import attrib, attrs
+
 import arrow
 import nhlapi.io
-from attr import attrib, attrs
 from nhlapi.endpoints import NHLAPI
 
 from . import localdata
@@ -39,6 +40,7 @@ class Standing:
     projection = attrib(init=False)
     point_percent = attrib(init=False)
     odds = attrib(init=False)
+    seed = attrib(default=None)
 
     def __attrs_post_init__(self):
         self.record = _format_record(self.wins, self.losses, self.ot)

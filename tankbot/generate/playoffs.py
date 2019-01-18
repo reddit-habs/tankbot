@@ -16,6 +16,10 @@ def fmt_vs(away, home):
     return f("{} at {}", fmt_team(away), fmt_team(home))
 
 
+def fmt_seed(s: Standing):
+    return f("[](/r/{s.team.subreddit}) {s.team.code.upper()} ({s.place})")
+
+
 def get_cheer(a: Analysis, m: Matchup):
     cheer = m.get_cheer()
     if cheer.overtime:
@@ -46,7 +50,15 @@ def make_standings_table(standings: typing.List[Standing]):
     t.add_columns("Place", "Team", "GP", "Record", "Points", "ROW", "L10", "P%", "P-82")
     for s in standings:
         t.add_row(
-            s.place, fmt_team(s.team), s.gamesPlayed, s.record, s.points, s.row, s.last10, s.point_percent, s.projection
+            s.seed or "",
+            fmt_team(s.team),
+            s.gamesPlayed,
+            s.record,
+            s.points,
+            s.row,
+            s.last10,
+            s.point_percent,
+            s.projection,
         )
     return t
 
@@ -58,8 +70,24 @@ def make_wildcard_table(standings: typing.List[Standing]):
         if i == 2:
             t.add_row("-", "-", "-", "-", "-", "-", "-", "-", "-")
         t.add_row(
-            s.place, fmt_team(s.team), s.gamesPlayed, s.record, s.points, s.row, s.last10, s.point_percent, s.projection
+            s.seed or "",
+            fmt_team(s.team),
+            s.gamesPlayed,
+            s.record,
+            s.points,
+            s.row,
+            s.last10,
+            s.point_percent,
+            s.projection,
         )
+    return t
+
+
+def make_matchups_table(a: Analysis):
+    t = Table()
+    t.add_columns("High seed", "", "Low seed")
+    for m in a.playoffs_matchups:
+        t.add_row(fmt_seed(m.high_team), "vs", fmt_seed(m.low_team))
     return t
 
 
@@ -100,6 +128,11 @@ def generate(a: Analysis):
     doc.add(make_standings_table(a.own_division))
     doc.add(make_standings_table(a.other_division))
     doc.add(make_wildcard_table(a.wildcard))
+    doc.add(HorizontalRule())
+
+    # playoffs matchups
+    doc.add(H2("Current playoffs matchups"))
+    doc.add(make_matchups_table(a))
     doc.add(HorizontalRule())
 
     # games
