@@ -172,30 +172,34 @@ def _get_standings(info, client, date, past=False):
 def _get_games(info, client):
     today = info.date.date().isoformat()
     data = client.schedule(start_date=today, end_date=today)
-    for entry in data.dates[0].games:
-        date = arrow.get(entry.gameDate).to("local")
-        home = info.get_team_by_id(entry.teams.home.team.id)
-        away = info.get_team_by_id(entry.teams.away.team.id)
-        game = Game(time=date, home=home, away=away)
-        info.games.append(game)
+    if len(data.dates) > 0:
+        for entry in data.dates[0].games:
+            date = arrow.get(entry.gameDate).to("local")
+            home = info.get_team_by_id(entry.teams.home.team.id)
+            away = info.get_team_by_id(entry.teams.away.team.id)
+            game = Game(time=date, home=home, away=away)
+            info.games.append(game)
 
 
 def _get_results(info, client):
     yesterday = info.past_date.date().isoformat()
-    data = client.schedule(start_date=yesterday, end_date=yesterday, expand="schedule.linescore")
-    for entry in data.dates[0].games:
-        date = arrow.get(entry.gameDate).to("local")
-        home = info.get_team_by_id(entry.teams.home.team.id)
-        away = info.get_team_by_id(entry.teams.away.team.id)
-        result = Result(
-            time=date,
-            home=home,
-            away=away,
-            home_score=entry.teams.home.score,
-            away_score=entry.teams.away.score,
-            overtime=len(entry.linescore.periods) > 3,
-        )
-        info.results.append(result)
+    data = client.schedule(
+        start_date=yesterday, end_date=yesterday, expand="schedule.linescore"
+    )
+    if len(data.dates) > 0:
+        for entry in data.dates[0].games:
+            date = arrow.get(entry.gameDate).to("local")
+            home = info.get_team_by_id(entry.teams.home.team.id)
+            away = info.get_team_by_id(entry.teams.away.team.id)
+            result = Result(
+                time=date,
+                home=home,
+                away=away,
+                home_score=entry.teams.home.score,
+                away_score=entry.teams.away.score,
+                overtime=len(entry.linescore.periods) > 3,
+            )
+            info.results.append(result)
 
 
 def fetch_info(date=None):
