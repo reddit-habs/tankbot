@@ -48,7 +48,7 @@ def make_result_table(a: Analysis, results):
 def make_standings_table(standings: typing.List[Standing]):
     t = Table()
     t.add_columns("Place", "Team", "GP", "Record", "Points", "ROW", "L10", "P%", "P-82")
-    for s in standings:
+    for s in standings[:3]:
         t.add_row(
             s.seed or "",
             fmt_team(s.team),

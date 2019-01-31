@@ -1,7 +1,6 @@
 import os
 
 import arrow
-
 from tankbot import serde
 from tankbot.analysis import Mood
 from tankbot.analysis.playoffs import Analysis, Matchup
@@ -78,12 +77,12 @@ def test_ideal_winner_when_top3_both_outside_division():
     my_team = INFO0.get_team_by_code("tbl")
     a = Analysis(INFO0, my_team, reach=1000)
     g = find_matchup_with_teams(a.games, "wsh", "cbj")
-    assert g.ideal_winner == INFO0.get_team_by_code("cbj")
+    assert g.ideal_winner == INFO0.get_team_by_code("wsh")
 
     my_team = INFO0.get_team_by_code("wsh")
     a = Analysis(INFO0, my_team, reach=1000)
     g = find_matchup_with_teams(a.games, "tor", "bos")
-    assert g.ideal_winner == INFO0.get_team_by_code("bos")
+    assert g.ideal_winner == INFO0.get_team_by_code("tor")
 
 
 def test_mood_my_team_win():

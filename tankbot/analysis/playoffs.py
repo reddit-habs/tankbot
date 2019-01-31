@@ -54,7 +54,7 @@ class Analysis:
 
         self._own_division_teams = set()
         self._conference_teams = set()
-        self.my_team_top3 = False
+        self._top_3_teams = set()
 
         place = 1
 
@@ -63,15 +63,15 @@ class Analysis:
                 self._conference_teams.add(standing.team)
                 if standing.team.division == self.my_team.division:
                     self._own_division_teams.add(standing.team)
-                    if len(self.own_division) < 3:
-                        if standing.team == self.my_team:
-                            self.my_team_top3 = True
-                        self.own_division.append(evolve(standing, place=place, seed=len(self.own_division) + 1))
+                    self.own_division.append(evolve(standing, place=place, seed=len(self.own_division) + 1))
+                    if len(self.own_division) <= 3:
+                        self._top_3_teams.add(standing.team)
                     else:
                         self.wildcard.append(evolve(standing, place=place, seed=len(self.wildcard) + 1))
                 else:
-                    if len(self.other_division) < 3:
-                        self.other_division.append(evolve(standing, place=place, seed=len(self.other_division) + 1))
+                    self.other_division.append(evolve(standing, place=place, seed=len(self.other_division) + 1))
+                    if len(self.other_division) <= 3:
+                        self._top_3_teams.add(standing.team)
                     else:
                         self.wildcard.append(evolve(standing, place=place, seed=len(self.wildcard) + 1))
                 place += 1
@@ -81,18 +81,28 @@ class Analysis:
 
         self.playoffs_matchups = self._compute_playoffs_matchups()
 
-    def _is_game_relevant(self, game, past=False):
-        my_points = self.info.get_standing(self.my_team, past).points
-        return (
-            game.home in self._conference_teams
-            and abs(self.info.get_standing(game.home).points - my_points) <= self.reach
-        ) or (
-            game.away in self._conference_teams
-            and abs(self.info.get_standing(game.away).points - my_points) <= self.reach
-        )
+    def _point_difference(self, other_team, past=False):
+        if self.my_team.conference != other_team.conference:
+            raise ValueError("teams are not in the same conference")
+        if (
+            self.my_team.division != other_team.division
+            and self.my_team in self._top_3_teams
+            and other_team in self._top_3_teams
+        ):
+            # teams are not in the same division and both are top 3 in their respective divisions
+            # the point difference is the sum from each team to the 4th place in their division
+            my_points = self.info.get_standing(self.my_team, past).points
+            other_points = self.info.get_standing(other_team, past).points
 
-    def _are_both_in_division(self, game, past=False):
-        return game.home in self._own_division_teams and game.away in self._own_division_teams
+            return abs(my_points - self.info.get_standing(self.own_division[3].team).points) + abs(
+                other_points - self.info.get_standing(self.other_division[3].team).points
+            )
+        return abs(self.info.get_standing(self.my_team).points - self.info.get_standing(other_team).points)
+
+    def _is_game_relevant(self, game, past=False):
+        return (game.home in self._conference_teams and self._point_difference(game.home, past) <= self.reach) or (
+            game.away in self._conference_teams and self._point_difference(game.away, past) <= self.reach
+        )
 
     def _are_both_in_conference(self, game, past=False):
         return game.home in self._conference_teams and game.away in self._conference_teams
@@ -114,9 +124,8 @@ class Analysis:
         return my_matchup, matchups
 
     def _find_furtest_team(self, game, past=False):
-        my_points = self.info.get_standing(self.my_team, past=past).points
-        points_team = [(self.info.get_standing(t, past=past).points, t) for t in (game.away, game.home)]
-        _, furthest_t = max(points_team, key=lambda s: abs(s[0] - my_points))
+        points_team = [(self._point_difference(t, past), t) for t in (game.away, game.home)]
+        _, furthest_t = max(points_team, key=lambda s: s[0])
         return furthest_t
 
     def _matchup_from_game(self, game, past=False):
@@ -126,20 +135,10 @@ class Analysis:
         if m.my_team_involved:
             m.ideal_winner = self.my_team
         else:
-            both_in_division = self._are_both_in_division(game, past)
-
-            # Default case. We usually want the team furthest away from us in points to win.
-            m.ideal_winner = self._find_furtest_team(game, past)
-
-            if self._are_both_in_conference(game) and not both_in_division:
-                # Both teams are in the conference, but one isn't in the division.
-                if self.my_team_top3:
-                    # If we're top 3 in the division, we want the team in our division to lose.
-                    if game.away in self._own_division_teams:
-                        m.ideal_winner = game.home
-                    elif game.home in self._own_division_teams:
-                        m.ideal_winner = game.away
-            elif not both_in_division:
+            if self._are_both_in_conference(game):
+                # Default case. We usually want the team furthest away from us in points to win.
+                m.ideal_winner = self._find_furtest_team(game, past)
+            else:
                 # One of the team is in the conference, but the other isn't.
                 m.other_in_conference = True
                 if game.away in self._conference_teams:
