@@ -9,7 +9,6 @@ class Matchup(BaseMatchup):
     game = attrib()
     ideal_winner = attrib(init=False)
     my_team_involved = attrib(default=False)
-    other_in_conference = attrib(default=False)
     time = attrib(init=False)
 
     def __attrs_post_init__(self):
@@ -30,7 +29,7 @@ class Matchup(BaseMatchup):
             return Mood.WORST
         else:
             # ideal team won
-            if self.other_in_conference and self.game.overtime:
+            if self.game.overtime:
                 # other team got an OT point and it's in the conference
                 return Mood.GOOD
             return Mood.GREAT
@@ -140,7 +139,6 @@ class Analysis:
                 m.ideal_winner = self._find_furtest_team(game, past)
             else:
                 # One of the team is in the conference, but the other isn't.
-                m.other_in_conference = True
                 if game.away in self._conference_teams:
                     m.ideal_winner = game.home
                 elif game.home in self._conference_teams:
