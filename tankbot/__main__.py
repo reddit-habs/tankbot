@@ -41,9 +41,8 @@ if __name__ == "__main__":
         test = config.get("test", False)
 
         info = fetch_info(args.date)
-        from tankbot import serde
-
-        serde.dumpf("info2.json", info, indent=4)
+        # from tankbot import serde
+        # serde.dumpf("info2.json", info, indent=4)
 
         reddit = None
 
