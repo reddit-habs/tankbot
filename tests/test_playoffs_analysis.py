@@ -1,7 +1,6 @@
 import os
 
 import arrow
-
 from tankbot import serde
 from tankbot.analysis import Mood
 from tankbot.analysis.playoffs import Analysis, Matchup
@@ -80,26 +79,39 @@ def test_ideal_winner_when_top3_both_outside_division():
     assert g.ideal_winner == INFO0.get_team_by_code("tor")
 
 
-def test_ideal_winner_from_wildcard():
+def test_ideal_winner_from_wildcard_1():
     my_team = INFO2.get_team_by_code("mtl")
-    a = Analysis(INFO2, my_team, reach=1000)
+    a = Analysis(INFO2, my_team)
     g = find_matchup_with_teams(a.results, "wsh", "tor")
     assert g.ideal_winner == INFO2.get_team_by_code("wsh")
 
+
+def test_ideal_winner_from_wildcard_2():
     my_team = INFO2.get_team_by_code("mtl")
-    a = Analysis(INFO2, my_team, reach=1000)
+    a = Analysis(INFO2, my_team)
     g = find_matchup_with_teams(a.results, "car", "fla")
     assert g.ideal_winner == INFO2.get_team_by_code("fla")
 
+
+def test_ideal_winner_from_wildcard_3():
     my_team = INFO2.get_team_by_code("pit")
-    a = Analysis(INFO2, my_team, reach=1000)
+    a = Analysis(INFO2, my_team)
     g = find_matchup_with_teams(a.results, "mtl", "phi")
     assert g.ideal_winner == INFO2.get_team_by_code("phi")
 
+
+def test_ideal_winner_from_wildcard_4():
     my_team = INFO2.get_team_by_code("pit")
-    a = Analysis(INFO2, my_team, reach=1000)
+    a = Analysis(INFO2, my_team)
     g = find_matchup_with_teams(a.results, "car", "fla")
     assert g.ideal_winner == INFO2.get_team_by_code("fla")
+
+
+def test_ideal_winner_from_wildcard_5():
+    my_team = INFO2.get_team_by_code("mtl")
+    a = Analysis(INFO2, my_team)
+    g = find_matchup_with_teams(a.games, "cbj", "ott")
+    assert g.ideal_winner == INFO2.get_team_by_code("ott")
 
 
 def test_mood_my_team_win():

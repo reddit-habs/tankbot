@@ -118,13 +118,13 @@ class GameAnalysis:
 
             if home_close and away_close:
                 m.ideal_winner = self._furthest_team()
-            elif home_close:
+            elif home_close and self.home_in_reach:
                 m.ideal_winner = game.away
-            elif away_close:
+            elif away_close and self.away_in_reach:
                 m.ideal_winner = game.home
-            elif game.home in a.own_division_teams:
+            elif game.home in a.own_division_teams and self.home_in_reach:
                 m.ideal_winner = game.away
-            elif game.away in a.own_division_teams:
+            elif game.away in a.own_division_teams and self.away_in_reach:
                 m.ideal_winner = game.home
             else:
                 m.ideal_winner = self._furthest_team()
