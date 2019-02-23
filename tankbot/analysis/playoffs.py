@@ -1,10 +1,9 @@
 from enum import Enum
-from typing import List, Set
 
 from attr import attrib, attrs, evolve
 
 from . import BaseMatchup, Cheer, Mood
-from ..api import Game, Info, Result, Standing, Team
+from ..api import Game, Info, Result, Team
 
 
 class Outlook(Enum):
@@ -18,7 +17,6 @@ class Matchup(BaseMatchup):
     game = attrib()
     ideal_winner = attrib(init=False)
     my_team_involved = attrib(default=False)
-    other_in_conference = attrib(default=False)
     time = attrib(init=False)
 
     def __attrs_post_init__(self):
@@ -39,7 +37,7 @@ class Matchup(BaseMatchup):
             return Mood.WORST
         else:
             # ideal team won
-            if self.other_in_conference and self.game.overtime:
+            if self.game.overtime:
                 # other team got an OT point and it's in the conference
                 return Mood.GOOD
             return Mood.GREAT
@@ -117,7 +115,7 @@ class GameAnalysis:
         elif self.a.my_outlook == Outlook.WILDCARD:
             home_close = game.home in a.wildcard_teams or game.home in a.outside_teams
             away_close = game.away in a.wildcard_teams or game.away in a.outside_teams
-            print(game.away.name, game.home.name, home_close, away_close)
+
             if home_close and away_close:
                 m.ideal_winner = self._furthest_team()
             elif home_close:
@@ -146,14 +144,14 @@ class Analysis:
         self.my_team = my_team
         self.reach = reach
 
-        self.own_division: List[Standing] = []  # ordered list of all the team's standings in our division
-        self.other_division: List[Standing] = []  # ordered list of all the team's standings in the other division
-        self.wildcard: List[Standing] = []  # ordered list of wild card team's standings
+        self.own_division = []  # ordered list of all the team's standings in our division
+        self.other_division = []  # ordered list of all the team's standings in the other division
+        self.wildcard = []  # ordered list of wild card team's standings
 
-        self.own_division_teams: Set[Team] = set()  # teams in our division
+        self.own_division_teams = set()  # teams in our division
         self.own_conference_teams = set()  # teams in our conference
-        self.wildcard_teams: Set[Team] = set()  # teams in the wild card
-        self.top_teams: Set[Team] = set()  # teams top 3 in their divisions
+        self.wildcard_teams = set()  # teams in the wild card
+        self.top_teams = set()  # teams top 3 in their divisions
         self.outside_teams = set()
 
         place = 1

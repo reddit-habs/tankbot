@@ -112,7 +112,7 @@ def test_mood_my_team_win():
 
 def test_mood_my_team_ot_win():
     game = Result(time=arrow.now(), home="mtl", away="bos", home_score=5, away_score=2, overtime=True)
-    m = Matchup(game, my_team_involved=True, other_in_conference=True)
+    m = Matchup(game, my_team_involved=True)
     m.ideal_winner = "mtl"
     assert m.get_mood() == Mood.GOOD
 
@@ -127,7 +127,7 @@ def test_mood_my_team_loss():
 
 def test_mood_my_team_ot_loss():
     game = Result(time=arrow.now(), home="mtl", away="bos", home_score=2, away_score=5, overtime=True)
-    m = Matchup(game, my_team_involved=True, other_in_conference=True)
+    m = Matchup(game, my_team_involved=True)
     m.ideal_winner = "mtl"
     assert m.get_mood() == Mood.BAD
 
@@ -142,7 +142,7 @@ def test_mood_ideal_team_win():
 
 def test_mood_ideal_team_ot_win():
     game = Result(time=arrow.now(), home="tor", away="bos", home_score=5, away_score=2, overtime=True)
-    m = Matchup(game, my_team_involved=False, other_in_conference=True)
+    m = Matchup(game, my_team_involved=False)
     m.ideal_winner = "tor"
     assert m.get_mood() == Mood.GOOD
 
@@ -157,6 +157,6 @@ def test_mood_ideal_team_loss():
 
 def test_mood_ideal_team_ot_loss():
     game = Result(time=arrow.now(), home="tor", away="bos", home_score=2, away_score=5, overtime=True)
-    m = Matchup(game, my_team_involved=False, other_in_conference=True)
+    m = Matchup(game, my_team_involved=False)
     m.ideal_winner = "tor"
     assert m.get_mood() == Mood.WORST
