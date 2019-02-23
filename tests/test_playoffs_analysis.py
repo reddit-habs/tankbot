@@ -1,6 +1,7 @@
 import os
 
 import arrow
+
 from tankbot import serde
 from tankbot.analysis import Mood
 from tankbot.analysis.playoffs import Analysis, Matchup
@@ -8,6 +9,7 @@ from tankbot.api import Result
 
 INFO0 = serde.loadf(os.path.join(os.path.dirname(__file__), "info0.json"))
 INFO1 = serde.loadf(os.path.join(os.path.dirname(__file__), "info1.json"))
+INFO2 = serde.loadf(os.path.join(os.path.dirname(__file__), "info2.json"))
 
 
 def find_matchup_with_teams(matchups, t1, t2):
@@ -66,13 +68,6 @@ def test_ideal_winner_when_top3_both_in_division():
     assert g.ideal_winner == INFO0.get_team_by_code("bos")
 
 
-def test_ideal_winner_when_top3_one_outside_division():
-    my_team = INFO1.get_team_by_code("tbl")
-    a = Analysis(INFO1, my_team, reach=1000)
-    g = find_matchup_with_teams(a.games, "wsh", "bos")
-    assert g.ideal_winner == INFO1.get_team_by_code("wsh")
-
-
 def test_ideal_winner_when_top3_both_outside_division():
     my_team = INFO0.get_team_by_code("tbl")
     a = Analysis(INFO0, my_team, reach=1000)
@@ -83,6 +78,28 @@ def test_ideal_winner_when_top3_both_outside_division():
     a = Analysis(INFO0, my_team, reach=1000)
     g = find_matchup_with_teams(a.games, "tor", "bos")
     assert g.ideal_winner == INFO0.get_team_by_code("tor")
+
+
+def test_ideal_winner_from_wildcard():
+    my_team = INFO2.get_team_by_code("mtl")
+    a = Analysis(INFO2, my_team, reach=1000)
+    g = find_matchup_with_teams(a.results, "wsh", "tor")
+    assert g.ideal_winner == INFO2.get_team_by_code("wsh")
+
+    my_team = INFO2.get_team_by_code("mtl")
+    a = Analysis(INFO2, my_team, reach=1000)
+    g = find_matchup_with_teams(a.results, "car", "fla")
+    assert g.ideal_winner == INFO2.get_team_by_code("fla")
+
+    my_team = INFO2.get_team_by_code("pit")
+    a = Analysis(INFO2, my_team, reach=1000)
+    g = find_matchup_with_teams(a.results, "mtl", "phi")
+    assert g.ideal_winner == INFO2.get_team_by_code("phi")
+
+    my_team = INFO2.get_team_by_code("pit")
+    a = Analysis(INFO2, my_team, reach=1000)
+    g = find_matchup_with_teams(a.results, "car", "fla")
+    assert g.ideal_winner == INFO2.get_team_by_code("fla")
 
 
 def test_mood_my_team_win():

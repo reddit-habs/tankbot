@@ -37,5 +37,22 @@ available in the `etc/` folder, to be customized to your needs.
 
 ```
 
+# Playoffs logic
+When analyzing a matchup between two teams in relation to our team (the team we root for)...
+
+- if our team is in the top 3
+    - if both teams are in the division, closest to us loses
+    - if one team is in our division, we want it to lose
+    - any other case, can be ignored
+
+- if our team is in the wild card
+    - teams below us must lose (within reach 5 to 10 points)
+    - teams above us most lose (in the wildcard)
+    - teams in our division must lose
+
+- if our team is outside the playoffs
+    - closest team to us must lose
+    - teams above us must lose
+
 # License
 This project is free software licensed under the AGPLv3 license.
