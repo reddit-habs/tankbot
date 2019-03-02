@@ -19,12 +19,12 @@ class Outcome(Enum):
         return 0
 
     def losses(self):
-        if self == Outcome.WIN:
+        if self == Outcome.LOSS:
             return 1
         return 0
 
     def ot(self):
-        if self == Outcome.WIN:
+        if self == Outcome.OT:
             return 1
         return 0
 

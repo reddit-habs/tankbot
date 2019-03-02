@@ -1,7 +1,6 @@
 import argparse
 import json
 import sys
-from collections import defaultdict
 
 import arrow
 import praw
@@ -9,7 +8,6 @@ import tankbot.analysis.playoffs
 import tankbot.analysis.tank
 import tankbot.generate.playoffs
 import tankbot.generate.tank
-from tankbot.analysis.simulation import Simulation
 from tankbot.api import fetch_info
 
 
