@@ -1,14 +1,15 @@
 import argparse
 import json
 import sys
+from collections import defaultdict
 
 import arrow
 import praw
-
 import tankbot.analysis.playoffs
 import tankbot.analysis.tank
 import tankbot.generate.playoffs
 import tankbot.generate.tank
+from tankbot.analysis.simulation import Simulation
 from tankbot.api import fetch_info
 
 
@@ -41,6 +42,7 @@ if __name__ == "__main__":
         test = config.get("test", False)
 
         info = fetch_info(args.date)
+
         # from tankbot import serde
         # serde.dumpf("info2.json", info, indent=4)
 
