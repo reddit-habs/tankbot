@@ -82,7 +82,9 @@ def generate(a: Analysis):
     doc.add(H2("Standings"))
     doc.add(make_standings_table(a))
     doc.add(
-        Paragraph("[Lottery odds, as well as a Lottery Simulator can be found here.](http://nhllotterysimulator.com)")
+        Paragraph(
+            "[Lottery odds, as well as a Lottery Simulator can be found here.](http://www.tankathon.com/nhl/pick_odds)"
+        )
     )
     doc.add(HorizontalRule())
 
